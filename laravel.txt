@@ -1,0 +1,983 @@
+LARAVEL FRAMEWORK
+
+DOCUMENTAÇÃO => https://laravel.com
+
+INSTALAR PHP => php.net
+
+INSTALAR PHP VIA XAMPP => apachefriends.org
+
+INSTALAR NODE & NPM => nodejs.org
+
+INSTALAR COMPOSER => getcomposer.org
+
+CRIAR PROJETO
+composer create-project laravel/laravel nome_do_projeto
+
+GLOBALMENTE
+composer global require laravel/installer
+laravel new example-app
+
+INICIAR APLICAÇÃO
+cd nome_do_projeto
+php artisan serve
+http://localhost:8000
+
+
+########## AUTENTICAÇÃO BREEZE
+https://www.jlgregorio.com.br/2022/11/29/autenticacao-no-laravel-9-com-o-laravel-breeze/
+configura .env
+php artisan migrate   //cria tabela de usuarios e tokens
+composer require laravel/breeze --dev  //baixa as dependencias
+php artisan breeze:install //instala o breeze e o vite com opções
+
+#baixa as dependências JS
+npm install
+
+#gera os arquivos CSS e JS otimizados
+# TailwindCSS
+npm run dev
+npm run build
+
+public/build/manifest.json             0.26 kB │ gzip:  0.13 kB
+public/build/assets/app-45c3c7cf.css  34.28 kB │ gzip:  6.24 kB
+public/build/assets/app-4a08c204.js 
+
+//TESTE VAI APARECER LOGIN E REGISTER NO CANTO SUPERIOR DIREITO
+php artisan serve
+Registrar Usuário
+
+app\Http\Controllers\Auth
+resources\views\auth
+resources\views\profile
+
+routes\web.php -> Adicionou rotas para login
+php artisan route:list //lista rotas
+
+#Protegendo diretamente no arquivo de rotas web.php
+Route::get("/products")->middleware("auth");
+
+#Protegendo o controlador no seu método construtor
+public function __construct(){
+    $this->middleware('auth')
+}
+
+######### TRADUZIR
+php artisan lang:publish
+composer require lucascudo/laravel-pt-br-localization --dev
+php artisan vendor:publish --tag=laravel-pt-br-localization
+// Altere Linha 85 do arquivo config/app.php para:
+'locale' => 'pt-BR',
+//Linha 94 'fallback_locale' => 'en',  altere para 
+'fallback_locale' => 'pt-BR'
+// Altere Linha 72 do arquivo config/app.php para:
+'timezone' => 'America/Sao_Paulo',
+
+######### CONFIGURAR DATABASE
+.env
+DB_CONNECTION=sqlite 
+DB_CONNECTION=mysql 
+DB_HOST=127.0.0.1 
+DB_PORT=3306 
+DB_DATABASE=laravel 
+DB_USERNAME=root 
+DB_PASSWORD= 
+
+######### CONFIGURAR EMAIL
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=scheleder.app@gmail.com
+MAIL_PASSWORD=zsbeddqyqnqfwrva
+MAIL_ENCRYPTION=ssl
+MAIL_FROM_ADDRESS=scheleder.app@gmail.com
+MAIL_FROM_NAME="${APP_NAME}"
+
+Em App/Models/User.php:
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+lass User extends Authenticatable implements MustVerifyEmail
+{
+    use Notifiable;
+
+######### CONFIGURAR APP_NAME APP_URL
+.env
+importante para o email
+
+Depois rodar php artisan migrate
+
+######### ENVIAR EMAIL PELO LARAVEL
+configurar .env
+php artisan make:mail Contact
+php artisan make:controller ContactController
+criar rotas, 
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+formularios
+
+######### CONFIGURAR APP LOGO
+em 
+resources\views\components\application-logo.blade.php
+48px
+
+######### COMPARTILHAR VARIAVEL COM TODAS AS VIEWS
+EM App\Providers\AppServiceProvider
+
+use Illuminate\Support\Facades\View;
+
+public function boot(){
+        View::share('version', '1.0.0');    
+}
+
+######### CONFIGURAR PAINEL ADMINISTRATIVO FILAMENT 
+composer req filament/filament
+php artisan filament:install --panels
+em config/app.php:
+'providers'
+App\Providers\Filament\AdminPanelProvider::class,
+criar resource:
+php artisan make:filament-resource
+Editar Resources em App\Filament\Resources
+
+
+
+
+######### NOTIFICAÇÕES
+$ composer require mckenziearts/laravel-notify
+config/app.php
+'providers' => [
+    ...
+    Mckenziearts\Notify\LaravelNotifyServiceProvider::class
+    ...
+];
+
+$ php artisan vendor:publish --provider="Mckenziearts\Notify\LaravelNotifyServiceProvider"
+$ composer dump-autoload
+
+<!doctype html>
+<html>
+    <head>
+        <title>Laravel Notify</title>
+        @notifyCss
+    </head>
+    <body>
+
+
+        <x-notify::notify />
+        @notifyJs
+    </body>
+</html>
+
+EDITAR posição da NOTIFICAÇÃO, 
+vendor\mckenziearts\laravel-notify\resources\views\notifications\toast.blade.php
+<div class="notify mt-14 fixed inset-0 flex justify-end px-4 py-6 pointer-events-none items-start" style="z-index: 9999999;>
+{{--  <x-notify::notify-title :title="session()->get('notify.title') ?? session()->get('notify.type')" /> --}}
+
+Para habilitar quebra de linhas nas mensagens (com <br>), edite:
+vendor\mckenziearts\laravel-notify\resources\views\components\notify-content.blade.php
+ troque: {{ $content }}
+ por: {!! $content !!}
+ 
+notify()->success('Welcome to Laravel Notify ⚡️') 
+notify()->success('Welcome to Laravel Notify ⚡️', 'My custom title')
+connectify('success', 'Connection Found', 'Success Message Here')
+drakify('error') // for error alert
+drakify('success') // for success alert
+smilify('success', 'You are successfully reconnected')
+emotify('success', 'You are awesome, your data was successfully created')
+
+Adding below CSS rule fixes the issue
+#laravel-notify{
+z-index: 99999;
+}
+
+Edit the file:
+vendor\mckenziearts\laravel-notify\resources\views\notifications\toast.blade.php
+
+Config file are located at config/notify.php
+'preset-messages' => [
+    'user-updated' => [
+        'message' => 'The user has been updated successfully.',
+        'type'    => 'success',
+        'model'   => 'connect',
+        'title'   => 'User Updated',
+    ],
+    'user-deleted' => [
+        'message' => 'The user has been deleted successfully.',
+        'type'    => 'success',
+        'model'   => 'connect',
+        'title'   => 'User Deleted',
+    ],
+],
+
+######## GERAR PDF
+composer require barryvdh/laravel-dompdf
+
+em config/app.php:
+
+'providers' => [
+	....
+	Barryvdh\DomPDF\ServiceProvider::class,
+],
+  
+'aliases' => [
+	....
+	'PDF' => Barryvdh\DomPDF\Facade::class,
+]
+
+Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
+ 
+php artisan make:controller PDFController
+
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use PDF;
+
+class PDFController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function generatePDF()
+    {
+        $data = [
+            'title' => 'Exemplo PDF',
+            'date' => date('d/m/Y')
+        ];
+
+        $pdf = PDF::loadView('pdf.myPDF', $data);
+
+        //$pdf = PDF::loadView('shop.coupon', ['sale' => $sale, 'setting' => $setting]);
+        //$pdf->setPaper('A7', 'portrait');
+        $pdf->setPaper('A4', 'portrait');
+        //$pdf->setPaper([0, 0, 807.874, 221.102], 'landscape');
+        //return $pdf->download('template.pdf');
+        return $pdf->stream('lista.pdf');
+
+    }
+}
+########### IMAGE SAVE e RESIZE
+composer require intervention/image
+em config/app.php
+ providers
+ Intervention\Image\ImageServiceProvider::class,
+ aliases
+'Image' => Intervention\Image\Facades\Image::class,
+
+use Intervention\Image\Facades\Image;
+        if($request->hasFile('logo') && $request->file('logo')->isValid()) {
+            if($setting->logo != 'logo.jpg'){
+                unlink(public_path('img/').$setting->logo);
+                }
+            $requestImage = $request->logo;
+            $extension = $requestImage->extension();
+            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+            $data['logo'] = $imageName;
+            Image::make($requestImage)->resize(60, 60)->save(public_path('img/').$imageName, 60, 'jpg');
+        }
+		
+
+########### MODELS
+php artisan make:model Product
+COM MIGRATIONS CONTROLLERS FORMS
+php artisan make:model Product --migration --controller --resource --requests
+ou php artisan make:model Product --all
+
+EDITAR CAMPOS NO MODELO
+EDITAR MIGRATIONS
+
+visualizar:
+php artisan model:show Product
+campos editaveis:
+protected $fillable = ['name'];
+campos com arrays
+protected $guarded = [];
+
+########### RELACIONAMENTOS BÁSICOS
+
++++++ 1:1
+class Schedule extends Model{
+ public function procediment(){
+	return $this->belongsTo(Procediment::class, 'procediment_id', 'id');}}
+class Procediment extends Model{
+ public function schedule(){
+    return $this->hasOne(Schedule::class, 'procediment_id', 'id');}}
+
++++++ 1:N
+class Classe extends Model{
+	public function course(){
+        return $this->belongsTo(Course::class, 'course_id', 'id');}}
+class Course extends Model{
+    public function classes(){
+        return $this->hasMany(Classe::class, 'course_id', 'id');}}
+
++++++ N:N
+class Classe extends Model{
+    public function students(){
+        return $this->belongsToMany(User::class, 'class_student', 'classe_id', 'user_id');}}
+class User extends Authenticatable{
+    public function classesAsStudent(){
+        return $this->belongsToMany(Classe::class, 'class_student', 'user_id', 'classe_id');}}
+
+php
+########## CONTROLLERS
+php artisan make:controller ProductController
+php artisan make:controller ProductController --model=Product --resource //CRUD
+php artisan make:controller ProductController --model=Product --resource --requests //CRUD + FORMS
+
+########## CRIAR DATABASE E TABELAS
+php artisan make:migration create_product_table
+php artisan migrate
+php artisan migrate:status
+php artisan migrate:rollback //desfaz a ultima migração
+php artisan migrate:reset //APAGA TUDO
+php artisan migrate:fresh //Roda todas migrations e apaga os dados do DB
+
+PARA ADICIONAR CAMPOS SEM PERDER DADOS
+cria migration adicionando o campo
+php artisan make:migration add_category_to_table_products
+e roda: php artisan migrate
+
+######### POPULAR TABELAS
+php artisan make:seeder UserSeeder
+php artisan tinker
+User::factory()->count(200)->create()
+
+######### PUBLICAR PROVIDERS E TAGS
+ php artisan vendor:publish
+
+######### ROTAS
+web.php
+
+Route::get('/greeting', function () {return 'Hello World';});
+Route::get('/user', [UserController::class, 'index']);
+Route::get('/users', function (Request $request) { // });
+Route::get('/user/profile', [UserProfileController::class, 'show'])->name('profile');
+$url = route('profile');
+return redirect()->route('profile');
+return to_route('profile');
+Route::redirect('/here', '/there');
+Route::view('/welcome', 'welcome');
+Route::view('/welcome', 'welcome', ['name' => 'Taylor']);
+Route::get('/profile', function ())->middleware('auth');
+
++++++ GRUPO DE ROTAS
+Route::controller(OrderController::class)->group(function () {
+    Route::get('/orders/{id}', 'show');
+    Route::post('/orders', 'store');});
+
+Auth::routes(); //a partir daqui somente com autenticação
+Route::get('/home', [HomeController::class, 'home']);
+Route::get('/users', [HomeController::class, 'showAllUsers']);
+
++++++ ROTAS DE SUBDOMINIO
+Route::domain('{account}.example.com')->group(function () {
+    Route::get('user/{id}', function ($account, $id) {  // });});
+
++++++ ACESSAR ROTA ATUAL
+$route = Route::current(); // Illuminate\Routing\Route
+$name = Route::currentRouteName(); // string
+$action = Route::currentRouteAction(); // string
+
++++++ ROUTE CACHE E CLEAR CACHE
+php artisan route:cache
+php artisan route:clear
+php artisan cache:clear
+php artisan view:clear
+
++++++ VER LISTA DE ROTAS
+php artisan route:list
+
+########## FORM METHOD SPOOFING FOR PUT, PATCH, or DELETE 
+<form action="/example" method="POST">
+@method('PUT') ou  <input type="hidden" name="_method" value="PUT">
+@csrf ou <input type="hidden" name="_token" value="{{ csrf_token() }}">
+</form>
+
+######### CHAMANDO ACTIONS 
+diretamente dos controllers
+use App\Http\Controllers\HomeController;
+return redirect()->action([HomeController::class, 'index']);
+
+########## REQUESTS
+$request->host();
+$request->httpHost();
+$request->schemeAndHttpHost();
+$ipAddress = $request->ip();
+$input = $request->all();
+$input = $request->collect();
+$name = $request->input('name');
+$name = $request->input('products.0.name');
+$name = $request->query('name');
+$name = $request->input('user.name'); //JSON
+$name = $request->string('name')->trim(); //toString
+$name = $request->name;
+$request->mergeIfMissing(['votes' => 0]);
+$username = $request->old('username');
+$path = $request->photo->path();
+$extension = $request->photo->extension();
+
+
+
+######### SALVANDO ARQUIVOS
+if($request->hasFile('image') && $request->file('image')->isValid()) {
+		$requestImage = $request->image;
+		$extension = $requestImage->extension();
+		$imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+		$requestImage->move(public_path('img/users'), $imageName);
+		$data['image'] = $imageName;
+	}
+	
+######### RESPONSES
+return redirect('home/dashboard');
+return redirect()->route('login');
+return redirect()->route('profile', ['id' => 1]);
+return redirect()->away('https://www.google.com');
+return back()->withInput();
+return response()->download($pathToFile);
+return response($content)
+		->header('Content-Type', $type)
+		->header('X-Header-One', 'Header Value')
+		->header('X-Header-Two', 'Header Value');
+			
+return response('Hello World')
+		->cookie('name', 'value', $minutes);
+		
+
+		
+######### LER VARIAVEL PHP NO JAVASCRIPT
+var soma = <?=$total?>;
+var sales =  {{ Js::from($data) }};
+	
+######### COLOCAR VIEWS EM CACHE ou LIMPAR CACHE
+php artisan view:cache
+php artisan view:clear
+
+######### REFERENCIAR ARQUIVOS ESTATICOS NA PASTA PUBLIC
+<script src="{{ asset('/js/scripts.js') }}"></script>
+
+########## DIRETIVAS NO BLADE
+{{-- This comment will not be present in the rendered HTML --}}
++++++ PHP
+@php
+    $counter = 1;
+@endphp
++++++ IF
+@if (count($records) === 1)
+    I have one record!
+@elseif (count($records) > 1)
+    I have multiple records!
+@else
+    I don't have any records!
+@endif
++++++ ISSET
+@isset($records)
+    // $records is defined and is not null...
+@endisset
++++++ AUTH
+@auth
+    // The user is authenticated...
+@endauth
++++++ GUEST
+@guest
+    // The user is not authenticated...
+@endguest
++++++ SWITCH
+@switch($i)
+    @case(1)
+        First case...
+        @break
+ 
+    @case(2)
+        Second case...
+        @break
+ 
+    @default
+        Default case...
+@endswitch
++++++ FOR
+@for ($i = 0; $i < 10; $i++)
+    The current value is {{ $i }}
+@endfor
++++++ FORELSE 
+@forelse ($users as $user)
+    <li>{{ $user->name }}</li>
+@empty
+    <p>No users</p>
+@endforelse
++++++ WHILE
+@while (true)
+    <p>I'm looping forever.</p>
+@endwhile
++++++ FOREACH
+@foreach ($users as $user)
+    <p>This is user {{ $user->id }}</p>
+@endforeach
++++++ FOREACH BREAK
+@foreach ($users as $user)
+    @if ($user->type == 1)
+        @continue
+    @endif
+    <li>{{ $user->name }}</li>
+    @if ($user->number == 5)
+        @break
+    @endif
+@endforeach
++++++ FOREACH->LOOP
+@foreach ($users as $user)
+    @if ($loop->first)
+        This is the first iteration.
+    @endif
+    @if ($loop->last)
+        This is the last iteration.
+    @endif
+    <p>This is user {{ $user->id }}</p>
+@endforeach
++++++ FOREACH->LOOP->ATTRIBS
+@foreach ($users as $user)
+    @foreach ($user->posts as $post)
+        @if ($loop->parent->first)
+            This is the first iteration of the parent loop.
+        @endif
+    @endforeach
+@endforeach
+
+########## ATRIBUTOS DO LOOP
+$loop->index		The index of the current loop iteration (starts at 0).
+$loop->iteration	The current loop iteration (starts at 1).
+$loop->remaining	The iterations remaining in the loop.
+$loop->count		The total number of items in the array being iterated.
+$loop->first		Whether this is the first iteration through the loop.
+$loop->last			Whether this is the last iteration through the loop.
+$loop->even			Whether this is an even iteration through the loop.
+$loop->odd			Whether this is an odd iteration through the loop.
+$loop->depth		The nesting level of the current loop.
+$loop->parent		When in a nested loop, the parent's loop variable.
+
+########## ATRIBUTOS BLADE
+<input type="checkbox" @checked(old('active', $user->active)) />
+<select name="version">
+    @foreach ($product->versions as $version)
+        <option value="{{ $version }}" @selected(old('version') == $version)>
+            {{ $version }}
+        </option>
+    @endforeach
+</select>
+<button type="submit" @disabled($errors->isNotEmpty())>Submit</button>
+<input type="email"
+        name="email"
+        value="email@laravel.com"
+        @readonly($user->isNotAdmin()) />
+<input type="text"
+        name="title"
+        value="title"
+        @required($user->isAdmin()) />
+
+########## DATABASE QUERYS
+$users=User::all();
+$user = User::findOrFail($id);
+$users=User::all()->sortBy('name');
+$users=User::where($type,1)->get()->sortBy('name');
+$newCoordinator = User::where('teacher', '=' ,1)->where('id','!=', $id)->first();
+$procediments = Procediment::where(['type', 'like', '%'.$search.'%'])->get()->sortBy('type');
+$classe->save();
+$register->delete();
+User::findOrFail($request->id)->update($data);
+Procediment::findOrFail($id)->delete();
+$student->classesAsStudent()->attach($classe->id);
+$student->classesAsStudent()->detach($classe->id);
+
+########## VIEWS
++++++ MODELO LAYOUT
+<title>@yield('title')</title>
+@yield('content')
++++++ MODELO VIEW
+@extends('layouts.main')
+@section('title', 'Editando: ' . $user->name)
+@section('content')
+@endsection
++++++ EXIBIR MENSAGEM AO CARREGAR A VIEW
+@if(session('msg'))
+<p class="msg">{{session('msg')}}</p>
+@endif
++++++ SUBVIEWS
+<div>@include('shared.errors')</div>
+@includeFirst(['custom.admin', 'admin'], ['status' => 'complete'])
+
+######### INICIALIZAR VARIAVEL DE ARRAY NO JAVASCRIPT
+<script>var list = @json($list);</script> //TESTADO
+<script>var app = <?php echo json_encode($array); ?>;</script>
+ou nas versões mais novas
+<script>var app = {{ Js::from($array) }};</script>
+
+######### FORMATAR MASCARA CPF
+<script type="text/javascript">
+function formatar_mascara(src, mascara) {
+ var campo = src.value.length;
+ var saida = mascara.substring(0,1);
+ var texto = mascara.substring(campo);
+ if(texto.substring(0,1) != saida) {
+ src.value += texto.substring(0,1);
+ }
+}
+</script>
+onkeypress="formatar_mascara(this,'###.###.###-##')" 
+
+######### FORMATAR MASCARA MOEDA
+<script type="text/javascript">
+// parâmetros da função moeda (pelo que entendi)
+// a = objeto do input // e = separador milésimo
+// r = separador decimal // t = evento
+
+function moeda(a, e, r, t) {
+   let n = "",
+      h = j = 0,
+      u = tamanho2 = 0,
+      l = ajd2 = "",
+      o = window.Event ? t.which : t.keyCode;
+   if (13 == o || 8 == o)
+      return !0;
+   if (n = String.fromCharCode(o),
+      -1 == "0123456789".indexOf(n))
+      return !1;
+   for (u = a.value.length,
+      h = 0; h < u && ("0" == a.value.charAt(h) || a.value.charAt(h) == r); h++);
+   for (l = ""; h < u; h++) - 1 != "0123456789".indexOf(a.value.charAt(h)) && (l += a.value.charAt(h));
+   if (l += n, 0 == (u = l.length) && (a.value = ""), 1 == u && (a.value = "0" + r + "0" + l), 2 == u && (a.value = "0" + r + l), u > 2) {
+      for (ajd2 = "",
+         j = 0,
+         h = u - 3; h >= 0; h--)
+         3 == j && (ajd2 += e,
+            j = 0),
+         ajd2 += l.charAt(h),
+         j++;
+      for (a.value = "",
+         tamanho2 = ajd2.length,
+         h = tamanho2 - 1; h >= 0; h--)
+         a.value += ajd2.charAt(h);
+      a.value += r + l.substr(u - 2, u)
+   }
+   return !1
+}
+</script>
+onkeypress="return(moeda(this,'.',',',event))"
+
+######### INCLUIR MODAL DE CONFIRMAÇÃO
+@include('layouts.confirmation_modal', 
+	['headerText' => 'Excluir Pessoa', 
+	'bodyText' => 'Confirma a exclusão?', 
+	'confirmButtonText' => 'Excluir', 
+	'verb' => 'DELETE'])
+<a data-href="/users/remove/{{$user->id}}" 
+	data-bs-toggle="modal" 
+	data-bs-target="#confirmation-modal" 
+	class="btn btn-danger" 
+	style="width: 45%">Excluir</a>
+<script>
+	$('#confirmation-modal').on('show.bs.modal', function(e) {
+		link = $(e.relatedTarget).data('href')
+		// change link of button to corresponding target
+		$(this).find('#deleteForm').attr('action', link)
+		//console.log(hrlinkef);
+		//$(this).find('#test').val(link)
+	})
+</script>
+
+######### INCLUIR AUTOCOMPLETE
+<div class="col form-group" autocomplete="off">
+	<form action="/users" method="GET">
+		<div class="autocomplete" style="width:300px;">
+			<input style="margin-left: 10px; margin-top:4px; background-color: #EEE" type="text" id="myInput" name="search" class="form-control" placeholder="Procurar pelo nome...">
+		</div></form></div>
+<script>
+    var list = @json($list);  //PASSAR A VARIAVEL $LIST VIA CONTROLLER
+    autocomplete(document.getElementById("myInput"), list);
+</script>
+
+<script>
+function autocomplete(inp, arr) {
+    /*the autocomplete function takes two arguments,
+    the text field element and an array of possible autocompleted values:*/
+    var currentFocus;
+    /*execute a function when someone writes in the text field:*/
+    inp.addEventListener("input", function(e) {
+        var a, b, i, val = this.value;
+        /*close any already open lists of autocompleted values*/
+        closeAllLists();
+        if (!val) { return false;}
+        currentFocus = -1;
+        /*create a DIV element that will contain the items (values):*/
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+        /*append the DIV element as a child of the autocomplete container:*/
+        this.parentNode.appendChild(a);
+        /*for each item in the array...*/
+        for (i = 0; i < arr.length; i++) {
+            /*check if the item starts with the same letters as the text field value:*/
+            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+            /*create a DIV element for each matching element:*/
+            b = document.createElement("DIV");
+            /*make the matching letters bold:*/
+            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+            b.innerHTML += arr[i].substr(val.length);
+            /*insert a input field that will hold the current array item's value:*/
+            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+            /*execute a function when someone clicks on the item value (DIV element):*/
+            b.addEventListener("click", function(e) {
+                /*insert the value for the autocomplete text field:*/
+                inp.value = this.getElementsByTagName("input")[0].value;
+                /*close the list of autocompleted values,
+                (or any other open lists of autocompleted values:*/   
+                closeAllLists();
+                inp.closest("form").submit();                 
+            });
+            a.appendChild(b);
+            }
+        }
+    });
+    /*execute a function presses a key on the keyboard:*/
+    inp.addEventListener("keydown", function(e) {
+        var x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+            /*If the arrow DOWN key is pressed,
+            increase the currentFocus variable:*/
+            currentFocus++;
+            /*and and make the current item more visible:*/
+            addActive(x);
+        } else if (e.keyCode == 38) { //up
+            /*If the arrow UP key is pressed,
+            decrease the currentFocus variable:*/
+            currentFocus--;
+            /*and and make the current item more visible:*/
+            addActive(x);
+        } else if (e.keyCode == 13) {
+            /*If the ENTER key is pressed, prevent the form from being submitted,*/
+            //e.preventDefault();
+            if (currentFocus > -1) {
+            /*and simulate a click on the "active" item:*/
+            if (x) x[currentFocus].click();
+            }
+            $(this).closest("form").submit(); 
+        }
+    });
+    function addActive(x) {
+        /*a function to classify an item as "active":*/
+        if (!x) return false;
+        /*start by removing the "active" class on all items:*/
+        removeActive(x);
+        if (currentFocus >= x.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = (x.length - 1);
+        /*add class "autocomplete-active":*/
+        x[currentFocus].classList.add("autocomplete-active");
+    }
+    function removeActive(x) {
+        /*a function to remove the "active" class from all autocomplete items:*/
+        for (var i = 0; i < x.length; i++) {
+        x[i].classList.remove("autocomplete-active");
+        }
+    }
+    function closeAllLists(elmnt) {
+        /*close all autocomplete lists in the document,
+        except the one passed as an argument:*/
+        var x = document.getElementsByClassName("autocomplete-items");
+        for (var i = 0; i < x.length; i++) {
+        if (elmnt != x[i] && elmnt != inp) {
+            x[i].parentNode.removeChild(x[i]);
+        }
+        }
+    }
+    /*execute a function when someone clicks in the document:*/
+    document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+    });
+}
+</script>
+
+########## RODAR NO LOCALHOST VIA XAMPP
++++++ httpd-vhostd.conf
+<VirtualHost *:80>
+	ServerName bra.localhost
+	DocumentRoot "c:/xampp/htdocs/bra/public"	
+</VirtualHost>
++++++ c:\windows\system32\drivers\etc\hosts
+127.0.0.1 bra.localhost
+::1	bra.localhost
++++++ httpd.conf
+Listen 80
+LoadModule alias_module modules/mod_alias.so
+<Directory "C:/xampp/htdocs">
+	Options Indexes FollowSymLinks Includes ExecCGI
+	AllowOverride All
+	Require all granted
+</Directory>
+
+########## DEPLOY HOSTINGER
++ INSTALAR LARAVEL VIA HOSTINGER
+COPIAR OS DADOS DO ARQUIVO .env QUE O HOSTINGER GEROU
+COPIAR O ARQUIVO INDEX.PHP GERADO
+CONTEUDO DO HTACCESS:
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+
+apagar o conteudo da pasta
+INSTALAR GIT VIA PAINEL
+copiar os arquivos, index.php, .env e .htaccess para a pasta
+
+
+
+
+retirar ponto ou virgulas da string
+            actualValue.replace(/[\D]+/g, ''));
+			
+
+
+console.log(loc(1579846));
+saída: 
+15.798,46;
+
+        $("#checkbox-all").click(function () {
+            $('input:checkbox').not(this).prop('checked', this.checked);
+            if ($(this).prop("checked") == true) {
+                sumValues();
+            }else{
+                $("#sum-cost").text('0,00');
+                $("#sum-qtty").text(0);
+            }
+        });
+		
+var cpf = "12345678901";
+var resultado = cpf.replace(/(\d{ 3 })(\d{ 3 })(\d{ 3 })(\d{ 2 })/, "$1.$2.$3-$4");
+
+############ VALIDAR CPF
+		function validarCPF($cpf) {
+    // Remove os caracteres que não são números
+    $cpf = preg_replace('/[^0-9]/is', '', $cpf);
+    
+    // Verifica se o CPF possui 11 dígitos
+    if (strlen($cpf) != 11) {
+        return false;
+    }
+    
+    // Verifica se todos os dígitos são iguais
+    if (preg_match('/(\d)\1{10}/', $cpf)) {
+        return false;
+    }
+
+    // Calcula o primeiro dígito verificador
+    $soma = 0;
+    for ($i = 0; $i < 9; $i++) {
+        $soma += ($cpf[$i] * (10 - $i));
+    }
+    $digito1 = 11 - ($soma % 11);
+    if ($digito1 > 9) {
+        $digito1 = 0;
+    }
+    
+    // Calcula o segundo dígito verificador
+    $soma = 0;
+    for ($i = 0; $i < 10; $i++) {
+        $soma += ($cpf[$i] * (11 - $i));
+    }
+    $digito2 = 11 - ($soma % 11);
+    if ($digito2 > 9) {
+        $digito2 = 0;
+    }
+    
+    // Verifica se os dígitos verificadores estão corretos
+    if (($cpf[9] != $digito1) || ($cpf[10] != $digito2)) {
+        return false;
+    }
+    
+    return true;
+}
+
+############ BUSCA ENDEREÇO
+<body>
+	<!--Importando Script Jquery-->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+	<!--Formulário-->
+	<form>
+		<label for="cep">CEP</label>
+		<input id="cep" type="text" required/>
+		<label for="logradouro">Logradouro</label>
+		<input id="logradouro" type="text" required/>
+		<label for="numero">Número</label>
+		<input id="numero" type="text" />
+		<label for="complemento">Complemento</label>
+		<input id="complemento" type="text"/>
+		<label for="cidade">Cidade</label>
+		<input id="cidade" type="text" required/>
+		<label for="bairro">Bairro</label>
+		<input id="bairro" type="text" required/>
+		<label for="uf">Estado</label>
+		<select id="uf">
+			<option value="AC">Acre</option>
+			<option value="AL">Alagoas</option>
+			<option value="AP">Amapá</option>
+			<option value="AM">Amazonas</option>
+			<option value="BA">Bahia</option>
+			<option value="CE">Ceará</option>
+			<option value="DF">Distrito Federal</option>
+			<option value="ES">Espírito Santo</option>
+			<option value="GO">Goiás</option>
+			<option value="MA">Maranhão</option>
+			<option value="MT">Mato Grosso</option>
+			<option value="MS">Mato Grosso do Sul</option>
+			<option value="MG">Minas Gerais</option>
+			<option value="PA">Pará</option>
+			<option value="PB">Paraíba</option>
+			<option value="PR">Paraná</option>
+			<option value="PE">Pernambuco</option>
+			<option value="PI">Piauí</option>
+			<option value="RJ">Rio de Janeiro</option>
+			<option value="RN">Rio Grande do Norte</option>
+			<option value="RS">Rio Grande do Sul</option>
+			<option value="RO">Rondônia</option>
+			<option value="RR">Roraima</option>
+			<option value="SC">Santa Catarina</option>
+			<option value="SP">São Paulo</option>
+			<option value="SE">Sergipe</option>
+			<option value="TO">Tocantins</option>
+		</select>
+	</form>
+	
+	<script type="text/javascript">
+		$("#cep").focusout(function(){
+			//Início do Comando AJAX
+			$.ajax({
+				//O campo URL diz o caminho de onde virá os dados
+				//É importante concatenar o valor digitado no CEP
+				url: 'https://viacep.com.br/ws/'+$(this).val()+'/json/unicode/',
+				//Aqui você deve preencher o tipo de dados que será lido,
+				//no caso, estamos lendo JSON.
+				dataType: 'json',
+				//SUCESS é referente a função que será executada caso
+				//ele consiga ler a fonte de dados com sucesso.
+				//O parâmetro dentro da função se refere ao nome da variável
+				//que você vai dar para ler esse objeto.
+				success: function(resposta){
+					//Agora basta definir os valores que você deseja preencher
+					//automaticamente nos campos acima.
+					$("#logradouro").val(resposta.logradouro);
+					$("#complemento").val(resposta.complemento);
+					$("#bairro").val(resposta.bairro);
+					$("#cidade").val(resposta.localidade);
+					$("#uf").val(resposta.uf);
+					//Vamos incluir para que o Número seja focado automaticamente
+					//melhorando a experiência do usuário
+					$("#numero").focus();
+				}
+			});
+		});
+	</script>
+</body>
+</html>
