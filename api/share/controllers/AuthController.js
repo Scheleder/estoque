@@ -23,32 +23,8 @@ exports.login = async (req, res) => {
     //CHECK USER
     let user = await User.findOne({ where: { email: email } });
     if (!user) {
-        const domain = "@grupoboticario.com.br";
-        if (email.substring(email.length - domain.length) != domain) {
-            return res.status(202).json({ msg: "E-mail inválido!" })
-        } else {
-            //REGISTER
-            //CREATE PASSWORD
-            const salt = await bcrypt.genSalt(12)
-            const passwordHash = await bcrypt.hash(password, salt)
-
-            //CREATE USER
-            const newUser = new User({
-                name,
-                email,
-                password: passwordHash,
-            })
-
-            try {
-                await newUser.save()
-
-            } catch (error) {
-                console.log(error)
-                return res.status(500).json({ msg: 'Erro ao cadastrar o usuário! Erro:' + error })
-            }
-            user = await User.findOne({ where: { email: email } });
-        }
-    } 
+        return res.status(202).json({ msg: "E-mail não cadastrado!" })
+    }
 
         //CHECK PASSWORD
         const checkPassword = await bcrypt.compare(password, user.password)
@@ -80,11 +56,6 @@ exports.register = async (req, res) => {
         return res.status(202).json({ msg: "E-mail é obrigatório!" })
     }
 
-    const domain = "@grupoboticario.com.br";
-    if (email.substring(email.length - domain.length) != domain) {
-        return res.status(202).json({ msg: "E-mail inválido!" })
-    }
-
     if (!password) {
         return res.status(202).json({ msg: "Senha é obrigatória!" })
     }
@@ -111,7 +82,7 @@ exports.register = async (req, res) => {
 
     try {
         await user.save()
-        if (MailService.sendCodeVerification(user)) {
+        if (await MailService.sendCodeVerification(user)) {
             return res.status(201).json({ msg: "Enviamos um código para " + user.email + ". Use este código para fazer login pela primeira vez.", id: user.id })
         } else {
             return res.status(202).json({ msg: "Falha ao enviar o código de confirmação!" })
@@ -132,7 +103,7 @@ exports.send = async (req, res) => {
     try {
         const newCode = codeGenerate();
         await user.update({ code: newCode })
-        if (MailService.sendCodeVerification(user)) {
+        if (await MailService.sendCodeVerification(user)) {
             return res.status(201).json({ msg: "Enviamos um novo código para " + user.email + ". Use este código para fazer login pela primeira vez.", id: user.id })
         } else {
             return res.status(202).json({ msg: "Falha ao enviar o código de confirmação!" })
@@ -167,7 +138,7 @@ exports.checkCode = async (req, res) => {
     } else {
         try {
             await user.update({ code: codeGenerate() })
-            if (MailService.sendCodeVerification(user)) {
+            if (await MailService.sendCodeVerification(user)) {
                 return res.status(202).json({ msg: "Os códigos não conferem. Enviamos um novo código de verificação para " + user.email + "." })
             } else {
                 return res.status(404).json({ msg: "Falha ao enviar o email de confirmação!" })
@@ -235,7 +206,7 @@ exports.reset = async (req, res) => {
     try {
         const newCode = codeGenerate();
         await user.update({ code: newCode })
-        if (MailService.sendResetCode(user)) {
+        if (await MailService.sendResetCode(user)) {
             return res.status(201).json({ msg: "Enviamos um código para " + user.email + ". Use este código para recuperar sua conta." })
         } else {
             return res.status(404).json({ msg: "Falha ao enviar o email!" })
@@ -243,5 +214,50 @@ exports.reset = async (req, res) => {
     } catch (error) {
         console.log(error)
         return res.status(500).json({ msg: 'Falha ao reconfigurar a senha! Erro:' + error })
+    }
+}
+
+exports.googleLogin = async (req, res) => {
+    const { credential } = req.body;
+    if (!credential) {
+        return res.status(202).json({ msg: "Token do Google é obrigatório!" });
+    }
+
+    try {
+        const payload = jwt.decode(credential);
+        if (!payload || !payload.email) {
+            return res.status(202).json({ msg: "Token do Google inválido!" });
+        }
+
+        const { email, name, picture } = payload;
+
+        let user = await User.findOne({ where: { email: email } });
+        if (!user) {
+            const salt = await bcrypt.genSalt(12);
+            const randomPassword = Math.random().toString(36).slice(-10);
+            const passwordHash = await bcrypt.hash(randomPassword, salt);
+
+            user = new User({
+                name,
+                email,
+                password: passwordHash,
+                code: null
+            });
+            await user.save();
+        } else if (user.code) {
+            await user.update({ code: null });
+        }
+
+        const secret = process.env.APP_SECRET;
+        const token = jwt.sign({ id: user.id }, secret);
+
+        return res.status(200).json({
+            msg: "Logado com sucesso!",
+            token,
+            user: { id: user.id, name: user.name, email: user.email, admin: user.admin, picture }
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ msg: 'Erro ao realizar login com o Google! Erro: ' + error });
     }
 }

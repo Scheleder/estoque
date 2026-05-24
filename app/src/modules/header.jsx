@@ -2,7 +2,7 @@ import * as React from "react"
 import { Link, useLocation } from "react-router-dom"
 import Logo from '../components/logo.jsx'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx"
-import { Search, ChevronLeft } from "lucide-react"
+import { Search, ChevronLeft, Settings, HelpCircle, LogOut } from "lucide-react"
 import { Input } from "@/components/ui/input.jsx"
 import { Button } from "@/components/ui/button.jsx"
 import {
@@ -91,6 +91,7 @@ const Header = () => {
   }
 
   let userName = localStorage.getItem('userName');
+  let userPicture = localStorage.getItem('userPicture');
   let iniciais = ''
   let userLink = "users/" + localStorage.getItem('userId');
   if(userName){    
@@ -101,7 +102,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="fixed z-10 w-full h-16 flex grid-cols-2 grid-rows-1 justify-between px-2 py-2 bg-blue-200">
+      <div className="fixed z-10 w-full h-16 flex grid-cols-2 grid-rows-1 justify-between px-2 py-2 bg-white border-b-2 border-[#7F0000] shadow-sm">
 
         <div className="relative flex justify-end mt-2">
           <div className="">
@@ -133,7 +134,7 @@ const Header = () => {
                 className="rounded-full mt-2 mx-4"
               >
                 <Avatar>
-                  <AvatarImage src="" />
+                  <AvatarImage src={userPicture || ""} />
                   <AvatarFallback className="bg-[url('./assets/user.png')] bg-cover bg-center text-orange-800 font-bold text-xs pt-[26px]">{iniciais}</AvatarFallback>
                 </Avatar>
               </Button>
@@ -141,20 +142,23 @@ const Header = () => {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>{userName}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <Link to={userLink}>
-                  Configurações
+              <DropdownMenuItem asChild>
+                <Link to={userLink} className="flex items-center gap-2 w-full cursor-pointer">
+                  <Settings className="w-4 h-4" />
+                  <span>Configurações</span>
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link to="/about">
-                  Ajuda
+              <DropdownMenuItem asChild>
+                <Link to="/about" className="flex items-center gap-2 w-full cursor-pointer">
+                  <HelpCircle className="w-4 h-4" />
+                  <span>Ajuda</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <Link to="logout">
-                  Sair
+              <DropdownMenuItem asChild>
+                <Link to="logout" className="flex items-center gap-2 w-full cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50">
+                  <LogOut className="w-4 h-4" />
+                  <span>Sair</span>
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>

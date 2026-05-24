@@ -1,16 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 
-const Logout = (props) => {
+const Logout = () => {
   const navigate = useNavigate()
-  localStorage.setItem('token', null)
-  localStorage.setItem('userName', null)
-  localStorage.setItem('userId', null)
-  localStorage.setItem('userMail', null)
-  localStorage.setItem('localId', null)
-  setTimeout(function () {
-    return navigate('/login')
-  }, 1000);
+
+  useEffect(() => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('userName')
+    localStorage.removeItem('userId')
+    localStorage.removeItem('userMail')
+    localStorage.removeItem('localId')
+    localStorage.removeItem('user')
+    localStorage.removeItem('userPicture')
+    navigate('/login')
+  }, [navigate])
+
+  return null
 }
 
 export default Logout

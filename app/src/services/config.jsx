@@ -2,15 +2,16 @@ import axios from 'axios';
 import { useNavigate } from 'react-router';
 import React, { useEffect } from 'react';
 
-const token = localStorage.getItem('token') || null;
-
 const api = axios.create({
   baseURL: '/api'
 });
 
 api.interceptors.request.use(
   config => {    
-      config.headers.Authorization = `Bearer ${token}`;
+      const token = localStorage.getItem('token');
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
       config.headers.Accept = '*/*';
       return config;
     },
