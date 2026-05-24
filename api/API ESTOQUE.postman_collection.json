@@ -1,0 +1,2505 @@
+{
+	"info": {
+		"_postman_id": "3f6d36f4-4e42-45ca-ad1f-373c53a0e207",
+		"name": "API ESTOQUE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35186849"
+	},
+	"item": [
+		{
+			"name": "create",
+			"item": [
+				{
+					"name": "New Brand",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Festo\",\r\n    \"website\":\"www.festo.com\",\r\n    \"logo\":\"\",\r\n    \"userId\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/brands/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"brands",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Siemens",
+									"disabled": true
+								},
+								{
+									"key": "website",
+									"value": "www.siemens.com",
+									"disabled": true
+								},
+								{
+									"key": "logo",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Disjuntores\",\r\n    \"userId\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/categories/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"categories",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Component",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\":\"Chave combinada 14/15\",\r\n    \"barcode\":\"24555883\",\r\n    \"sku\":\"9877883\",\r\n    \"brandId\":\"1\",\r\n    \"unityId\":\"1\",\r\n    \"categoryId\":\"1\",\r\n    \"sap\":\"100076439\",\r\n    \"userId\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/components/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"components",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Vitor Scheleder",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "vitor@scheleder.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Contact",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Francisco Busato\",\r\n    \"email\":\"busato@reymaster.com.br\",\r\n    \"phone\":\"(41) 999 234 765\",\r\n    \"supplierId\":\"1\",\r\n    \"userId\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/contacts/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"contacts",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Siemens",
+									"disabled": true
+								},
+								{
+									"key": "website",
+									"value": "www.siemens.com",
+									"disabled": true
+								},
+								{
+									"key": "logo",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quantity\":\"1\",\r\n    \"minimum\":\"1\",\r\n    \"adress\":\"C3D5\",\r\n    \"localId\":\"1\",\r\n    \"componentId\":\"2\",\r\n    \"userId\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/items/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"items",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Vitor Scheleder",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "vitor@scheleder.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Local",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Estoque de Manutenção CGS\",\r\n    \"userId\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/locals/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"locals",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Movement",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\":\"Transferência para outro estoque\",\r\n    \"destination\":\"Estoque de Facilities CGS\",\r\n    \"quantity\":\"2\",\r\n    \"userId\":\"8\",\r\n    \"itemId\":\"2\",\r\n    \"localId\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/movements/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"movements",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Vitor Scheleder",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "vitor@scheleder.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Supplier",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Reymaster\",\r\n    \"website\":\"www.reymaster.com.br\",\r\n    \"email\":\"vendas@reymaster.com.br\",\r\n    \"phone\":\"(041) 3323-6767\",\r\n    \"adress\":\"Rua Mascarenhas de Moraes, 256 - CEP: 80232-090 - Santa Cândida - Curitiba - Paraná\",\r\n    \"sap\":\"10002343\",\r\n    \"userId\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/suppliers/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"suppliers",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Siemens",
+									"disabled": true
+								},
+								{
+									"key": "website",
+									"value": "www.siemens.com",
+									"disabled": true
+								},
+								{
+									"key": "logo",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Unity",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Unidade\",\r\n    \"abrev\":\"un\",\r\n    \"decimal\":\"0\",\r\n    \"userId\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/units/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"units",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "read",
+			"item": [
+				{
+					"name": "getAll",
+					"item": [
+						{
+							"name": "Get Brands",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/brands",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"brands"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Categories",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/categories",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Contacts",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/contacts",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"contacts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Components",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/components",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"components"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Items",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/items?description=&barcode=&adress&brandId=&localId=1&categoryId=",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"items"
+									],
+									"query": [
+										{
+											"key": "description",
+											"value": ""
+										},
+										{
+											"key": "barcode",
+											"value": ""
+										},
+										{
+											"key": "adress",
+											"value": null
+										},
+										{
+											"key": "brandId",
+											"value": ""
+										},
+										{
+											"key": "localId",
+											"value": "1"
+										},
+										{
+											"key": "categoryId",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Locals",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/locals",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"locals"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Movements",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/movements?destination=4003456",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"movements"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "3",
+											"disabled": true
+										},
+										{
+											"key": "localId",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "itemId",
+											"value": "6",
+											"disabled": true
+										},
+										{
+											"key": "destination",
+											"value": "4003456"
+										},
+										{
+											"key": "type",
+											"value": "Consumo na ordem",
+											"disabled": true
+										},
+										{
+											"key": "dataIni",
+											"value": "'2024-07-20'",
+											"disabled": true
+										},
+										{
+											"key": "dataFim",
+											"value": "'2024-07-28'",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Suppliers",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/suppliers",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"suppliers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Units",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/units",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"units"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Users",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/users",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "getOne",
+					"item": [
+						{
+							"name": "Get Brand",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/brands/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"brands",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Category",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/categories/2",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"categories",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Component",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/components/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"components",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Contact",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/contacts/2",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"contacts",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Item",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/items/2",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"items",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Local",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/locals/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"locals",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Supplier",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/suppliers/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"suppliers",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Unity",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/units/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"units",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Movement",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/movements/2",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"movements",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/users/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"users",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "update",
+			"item": [
+				{
+					"name": "Update Brand",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Festo\",\r\n    \"website\":\"https://www.festo.com\",\r\n    \"logo\":\"\",\r\n    \"userId\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/brands/4",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"brands",
+								"4"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Siemens",
+									"disabled": true
+								},
+								{
+									"key": "website",
+									"value": "www.siemens.com",
+									"disabled": true
+								},
+								{
+									"key": "logo",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Disjuntores\",\r\n    \"userId\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/categories/3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"categories",
+								"3"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Siemens",
+									"disabled": true
+								},
+								{
+									"key": "website",
+									"value": "www.siemens.com",
+									"disabled": true
+								},
+								{
+									"key": "logo",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Component",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\":\"Chave combinada 12/13\",\r\n    \"barcode\":\"76544\",\r\n    \"sku\":\"23234\",\r\n    \"brandId\":\"1\",\r\n    \"unityId\":\"1\",\r\n    \"categoryId\":\"1\",\r\n    \"sap\":\"10007654\",\r\n    \"userId\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/components/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"components",
+								"2"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Siemens",
+									"disabled": true
+								},
+								{
+									"key": "website",
+									"value": "www.siemens.com",
+									"disabled": true
+								},
+								{
+									"key": "logo",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Contact",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Francisco Busato Junior\",\r\n    \"email\":\"busato@reymaster.com.br\",\r\n    \"phone\":\"(41) 999 234 765\",\r\n    \"supplierId\":\"1\",\r\n    \"userId\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/contacts/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"contacts",
+								"1"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Siemens",
+									"disabled": true
+								},
+								{
+									"key": "website",
+									"value": "www.siemens.com",
+									"disabled": true
+								},
+								{
+									"key": "logo",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quantity\":\"2\",\r\n    \"minimum\":\"1\",\r\n    \"adress\":\"J8G3\",\r\n    \"localId\":\"1\",\r\n    \"componentId\":\"1\",\r\n    \"userId\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/items/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"items",
+								"2"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Siemens",
+									"disabled": true
+								},
+								{
+									"key": "website",
+									"value": "www.siemens.com",
+									"disabled": true
+								},
+								{
+									"key": "logo",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Local",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Estoque de Manutenção CGS\",\r\n    \"userId\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/locals/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"locals",
+								"1"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Siemens",
+									"disabled": true
+								},
+								{
+									"key": "website",
+									"value": "www.siemens.com",
+									"disabled": true
+								},
+								{
+									"key": "logo",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Movement",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\":\"Entrada de Material\",\r\n    \"destination\":\"H6T4\",\r\n    \"quantity\":\"1\",\r\n    \"userId\":\"1\",\r\n    \"itemId\":\"1\",\r\n    \"localId\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/movements/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"movements",
+								"2"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Siemens",
+									"disabled": true
+								},
+								{
+									"key": "website",
+									"value": "www.siemens.com",
+									"disabled": true
+								},
+								{
+									"key": "logo",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Supplier",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Reymaster\",\r\n    \"website\":\"www.reymaster.com.br\",\r\n    \"email\":\"vendas@reymaster.com.br\",\r\n    \"phone\":\"(041) 3223-6767\",\r\n    \"adress\":\"Rua Mascarenhas de Moraes, 256 - CEP: 80232-090 - Santa Cândida - Curitiba - Paraná\",\r\n    \"sap\":\"10002343\",\r\n    \"userId\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/suppliers/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"suppliers",
+								"1"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Siemens",
+									"disabled": true
+								},
+								{
+									"key": "website",
+									"value": "www.siemens.com",
+									"disabled": true
+								},
+								{
+									"key": "logo",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Unity",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Unidade\",\r\n    \"abrev\":\"un\",\r\n    \"decimal\":\"0\",\r\n    \"userId\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/units/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"units",
+								"1"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Siemens",
+									"disabled": true
+								},
+								{
+									"key": "website",
+									"value": "www.siemens.com",
+									"disabled": true
+								},
+								{
+									"key": "logo",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Allan Vianna Antônio\",\r\n    \"email\":\"allan@knapp.com.br\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"1"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Siemens",
+									"disabled": true
+								},
+								{
+									"key": "website",
+									"value": "www.siemens.com",
+									"disabled": true
+								},
+								{
+									"key": "logo",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add/Remove Brand Supplier",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"supplierId\":\"1\",\r\n    \"attach\":\"true\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/brands/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"brands",
+								"1"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Vitor Scheleder",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "vitor@scheleder.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add/Remove Component Supplier",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"supplierId\":\"1\",\r\n    \"attach\":\"true\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/components/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"components",
+								"1"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Vitor Scheleder",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "vitor@scheleder.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "delete",
+			"item": [
+				{
+					"name": "Remove Brand",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/brands/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"brands",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/categories/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Component",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/components/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"components",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Contact",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/contacts/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"contacts",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/items/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"items",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Local",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/locals/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"locals",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Movement",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/movements/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"movements",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Supplier",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/suppliers/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"suppliers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Unity",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/units/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"units",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Conta Teste\",\r\n    \"email\":\"teste@teste.com\",\r\n    \"password\":\"teste\",\r\n    \"confirmpassword\":\"teste\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/register",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Vitor Scheleder",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "vitor@scheleder.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"teste@teste.com\",\r\n    \"password\":\"teste\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Vitor Scheleder",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "vitor@scheleder.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\":\"2\",\r\n    \"code\":\"625961\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/confirm",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"confirm"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Vitor Scheleder",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "vitor@scheleder.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Re-send Code",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/auth/send/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"send",
+								"2"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Vitor Scheleder",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "vitor@scheleder.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"allan.viana@knapp.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/reset",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"reset"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Vitor Scheleder",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "vitor@scheleder.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\":\"538878\",\r\n    \"email\":\"allan.viana@knapp.com\",\r\n    \"password\":\"4321\",\r\n    \"confirmpassword\":\"4321\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/update",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"update"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Vitor Scheleder",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "vitor@scheleder.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "swagger",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://estoque-facil.com/swagger",
+					"protocol": "https",
+					"host": [
+						"estoque-facil",
+						"com"
+					],
+					"path": [
+						"swagger"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetInfo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"prompt\":\"Relatório resumido com os seguintes tópicos: Descrição, Especificações Técnicas e Links Úteis, sobre o produto Inversor CFW10 da marca Weg.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/info",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"info"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Vitor Scheleder",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "vitor@scheleder.com",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "1234",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SenMail",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"from\":\"2\",\r\n    \"to\":\"1\",\r\n    \"message\":\"Mensagem teste via postman\\nTeste quebra de linha\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/mail",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"mail"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Vitor Scheleder",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "vitor@scheleder.com",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "1234",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "TOKEN",
+			"value": "REMOVED",
+			"type": "string"
+		},
+		{
+			"key": "URL",
+			"value": "https://estoque-facil.com/api",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "URL",
+			"value": "http://100.29.104.33/api",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "URL",
+			"value": "http://100.29.104.33:3000",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}

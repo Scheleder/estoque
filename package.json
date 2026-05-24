@@ -1,0 +1,17 @@
+{
+  "name": "estoque-unificado",
+  "version": "1.0.0",
+  "description": "Unified stock management application",
+  "main": "api/index.js",
+  "scripts": {
+    "install:all": "npm install && npm install --prefix api && npm install --prefix app",
+    "build:app": "npm run build --prefix app",
+    "start": "node api/index.js",
+    "dev:api": "npm start --prefix api",
+    "dev:app": "npm run dev --prefix app",
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:app\""
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
