@@ -12,12 +12,14 @@ import { CategoryAdd } from '../categories/CategoryAdd';
 import { BrandAdd } from '../brands/BrandAdd';
 import ErrorPage from "../utils/ErrorPage"
 import { ComponentAdd } from '../components/ComponentAdd';
+import { LocalAdd } from '../locals/LocalAdd';
 import { useToast } from "@/components/ui/use-toast"
 
 const Supply = (props) => {
   const { control, register, handleSubmit } = useForm();
   const [data, setData] = useState("");
   const [components, setComponents] = useState([]);
+  const [locals, setLocals] = useState([]);
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
   const [isProcessing, setIsProcessing] = useState(true);
@@ -30,12 +32,21 @@ const Supply = (props) => {
   const getData = async () => {
     try {
       setIsProcessing(true);
-      const response = await api.get('components');
-      const sortedComponents = response.data
+      const [responseComponents, responseLocals] = await Promise.all([
+        api.get('components'),
+        api.get('locals')
+      ]);
+
+      const sortedComponents = responseComponents.data
         .map(item => ({ value: item.id, label: item.description, unity: item.Unity.abrev }))
         .sort((a, b) => a.label.localeCompare(b.label));
 
+      const sortedLocals = responseLocals.data
+        .map(item => ({ value: item.id, label: item.name }))
+        .sort((a, b) => a.label.localeCompare(b.label));
+
       setComponents(sortedComponents);
+      setLocals(sortedLocals);
 
     } catch (err) {
       setError(err);
@@ -96,6 +107,28 @@ const Supply = (props) => {
             <form onSubmit={handleSubmit(mySubmit)}>
               <div className='grid grid-cols-4 mb-2'>
                 <div className='relative col-span-4 mt-2'>
+                  <label>Estoque:</label>
+                  <div className='absolute top-4 right-0'><LocalAdd /></div>
+                </div>
+                <div className='flex col-span-4 mb-2'>
+                  <Controller
+                    name="localId"
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        value={locals.find(option => option.value === field.value)}
+                        options={locals}
+                        placeholder="Selecione o estoque (Local)"
+                        className="w-full mr-36"
+                        styles={styles}
+                        onChange={(selected) => field.onChange(selected.value)}
+                      />
+                    )}
+                  />
+                </div>
+                <div className='relative col-span-4 mt-2'>
                   <label>Componente:</label>
                   <div className='absolute top-4 right-0'><ComponentAdd /></div>
                 </div>
@@ -107,7 +140,7 @@ const Supply = (props) => {
                     render={({ field }) => (
                       <Select
                         {...field}
-                        value={categories.find(option => option.value === field.value)}
+                        value={components.find(option => option.value === field.value)}
                         options={components}
                         placeholder="Selecione o componente"
                         className="w-full mr-36"

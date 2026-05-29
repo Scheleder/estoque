@@ -25,6 +25,10 @@ exports.create = async (req, res) => {
   var updatedFields = {};
 
   if (type === 'Ajuste de estoque') {
+    const user = await User.findByPk(userId);
+    if (!user || !user.admin) {
+      return res.status(202).json({ msg: "Apenas administradores podem realizar ajuste de estoque!" })
+    }
     updatedFields = {
       quantity: quantity
     };

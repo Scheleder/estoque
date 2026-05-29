@@ -36,6 +36,11 @@ const Takeout = () => {
   const [qtde, setQtde] = useState('');
   const [adress, setAdress] = useState('');
   const [type, setType] = useState(null);
+
+  const userStr = localStorage.getItem('user');
+  const user = userStr ? JSON.parse(userStr) : null;
+  const isAdmin = user && (user.admin === true || user.admin === 1);
+  const availableTypes = isAdmin ? types : types.filter(t => t.id !== 1);
   const styles = {
     menu: base => ({
       ...base,
@@ -217,8 +222,8 @@ const Takeout = () => {
                       render={({ field }) => (
                         <Select
                           {...field}
-                          value={types.find(option => option.value === field.value)}
-                          options={types}
+                          value={availableTypes.find(option => option.value === field.value)}
+                          options={availableTypes}
                           placeholder="Selecione o tipo de movimentação"
                           className="w-full"
                           styles={styles}

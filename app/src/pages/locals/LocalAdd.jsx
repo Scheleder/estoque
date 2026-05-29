@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button"
 import ButtonAdd from '@/components/buttonAdd'
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
+import { Plus } from "lucide-react"
 
 export function LocalAdd() {
 
@@ -60,6 +61,23 @@ export function LocalAdd() {
             setIsProcessing(false);
         }
 
+    }
+
+    const userStr = localStorage.getItem('user');
+    const user = userStr ? JSON.parse(userStr) : null;
+    const isAdmin = user && (user.admin === true || user.admin === 1);
+
+    if (!isAdmin) {
+        return (
+            <button
+                type="button"
+                disabled
+                title="Apenas administradores podem cadastrar novos locais de estoque."
+                className="inline-flex m-2.5 bg-gray-300 text-gray-500 px-4 py-1.5 rounded-md cursor-not-allowed opacity-50 items-center gap-1 font-semibold text-sm"
+            >
+                <Plus className="w-5 h-5" /> Adicionar
+            </button>
+        );
     }
 
     return (
