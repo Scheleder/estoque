@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import Loading from '@/components/loading';
 import Pagetitle from '@/components/pagetitle';
 import { Input } from '@/components/ui/input'
-import { Eye, Send, Save, Earth } from "lucide-react"
+import { Eye, Send, Save, Earth, ArrowLeft } from "lucide-react"
 import {
     Tooltip,
     TooltipContent,
@@ -85,8 +85,17 @@ const LocalDetails = (props) => {
             ) : error ? (
                 <ErrorPage error={error} />
             ) : (
-                <div className="pl-16 pt-20">
-                    <div className="mt-2 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
+                <div className="pl-16 pt-20 pr-2 pb-6">
+                    <div className="mb-4 flex items-center">
+                        <Button
+                            variant="ghost"
+                            onClick={() => navigate(-1)}
+                            className="flex items-center gap-1.5 text-gray-500 hover:text-gray-900 transition-colors font-semibold text-xs"
+                        >
+                            <ArrowLeft className="w-4 h-4" /> Voltar para Configurações
+                        </Button>
+                    </div>
+                    <div className="mt-2 shadow-md rounded-xl p-6 bg-gray-50 border border-gray-100">
                         <form onSubmit={handleSubmit(mySubmit)}>
                             <div className='grid grid-cols-3 mb-2'>
                                 <div className='col-span-2 mt-2'>
@@ -94,7 +103,7 @@ const LocalDetails = (props) => {
                                 </div>
                                 <div className='col-span-1 mt-2'></div>
                                 <div className='col-span-2'>
-                                    <Input {...register("name", { required: true })} className=" mr-4" defaultValue={local.name} />
+                                    <Input {...register("name", { required: true })} className=" mr-4 bg-white" defaultValue={local.name} />
                                 </div>
                                 <div className='flex col-span-1'>
                                     <Button type="submit" className="ml-4 w-full bg-blue-700 hover:bg-blue-500"><Save className='w-4 h-4 mr-2' /> Salvar alterações</Button>

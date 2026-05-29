@@ -83,9 +83,30 @@ const Categories = () => {
       ) : error ? (
         <ErrorPage error={error} />
       ) : (
-        <div className="relative overflow-x-auto shadow-lg rounded-md">
-          <div className='text-right'>
-            <CategoryAdd />
+        <div className="relative overflow-x-auto">
+          <div className="mx-2 my-4 p-4 shadow-md rounded-xl bg-gray-50 border border-gray-100 flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="relative">
+                <input
+                  type="text"
+                  value={searchItem}
+                  onChange={(e) => setSearchItem(e.target.value)}
+                  className="w-64 px-3 py-1.5 pl-8 border border-gray-200 rounded-md text-xs bg-white text-gray-800 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  placeholder="Buscar por categoria..."
+                />
+                <ListFilter size={14} className="absolute left-2.5 top-2 text-gray-400" />
+                {searchItem && (
+                  <RotateCcw
+                    size={14}
+                    className="absolute right-2.5 top-2 text-gray-600 hover:text-red-500 cursor-pointer"
+                    onClick={clearSearchItem}
+                  />
+                )}
+              </div>
+            </div>
+            <div>
+              <CategoryAdd />
+            </div>
           </div>
           <div className='overflow-x-auto rounded-md shadow-md m-2'>
             <table className="w-full text-xs xs:text-sm text-blue-800">
@@ -98,20 +119,7 @@ const Categories = () => {
               <thead>
                 <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
                   <th className=''><ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByName} />
-                    <span className='ml-6'>Categories</span>
-                    <span className='relative'>
-                      <input
-                        type="text"
-                        value={searchItem}
-                        onChange={(e) => setSearchItem(e.target.value)}
-                        className='w-32 ml-2 pl-2 rounded-sm text-xs text-orange-600'
-                        placeholder='Filtrar...'
-                      />
-                      {searchItem ?
-                        <RotateCcw size={12} className='absolute right-2 top-0.5 text-gray-600 hover:text-red-400 cursor-pointer' onClick={clearSearchItem} /> :
-                        <ListFilter size={12} className='absolute right-2 top-0.5 text-gray-600' />
-                      }
-                    </span>
+                    <span className='ml-6'>Categorias</span>
                   </th>
                   <th></th>
                 </tr>

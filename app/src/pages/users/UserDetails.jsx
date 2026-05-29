@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { React, useEffect, useState } from 'react';
 import { api }  from '@/services/config';
-import { getDate } from '@/lib/utils';
+import { getDate, formatQuantity } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Loading from '@/components/loading';
@@ -197,7 +197,7 @@ const UserDetails = (props) => {
                         <td className='px-2 py-1'>{getDate(dt.createdAt)}</td>
                         <td className='p-1'>{dt.type}</td>
                         <td className='p-1'>{dt.destination}</td>
-                        <td className='p-1'>{dt.quantity} {dt.Item.Component.Unity.abrev}</td>
+                        <td className='p-1'>{formatQuantity(dt.quantity, dt.Item?.Component?.Unity?.decimal)} {dt.Item?.Component?.Unity?.abrev}</td>
                         <td className='p-1'>
                           <TooltipProvider>
                             <Tooltip>

@@ -25,7 +25,10 @@ const Supply = (props) => {
   const [isProcessing, setIsProcessing] = useState(true);
   const [error, setError] = useState(null);
   const [unity, setUnity] = useState('')
-  const styles = { menu: base => ({ ...base, marginTop: 0 }) };
+  const styles = {
+    menu: base => ({ ...base, marginTop: 0 }),
+    control: base => ({ ...base, backgroundColor: 'white' })
+  };
   const { toast } = useToast()
   const navigate = useNavigate()
 
@@ -102,70 +105,93 @@ const Supply = (props) => {
       ) : error ? (
         <ErrorPage error={error} />
       ) : (
-        <div className="pl-16 pt-20">
-          <div className="mt-2 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
+        <div className="pl-16 pt-20 pr-4 pb-6">
+          <div className="mt-2 shadow-md rounded-xl p-6 bg-gray-50 border border-gray-100 mr-2">
             <form onSubmit={handleSubmit(mySubmit)}>
-              <div className='grid grid-cols-4 mb-2'>
-                <div className='relative col-span-4 mt-2'>
-                  <label>Estoque:</label>
-                  <div className='absolute top-4 right-0'><LocalAdd /></div>
-                </div>
-                <div className='flex col-span-4 mb-2'>
-                  <Controller
-                    name="localId"
-                    control={control}
-                    rules={{ required: true }}
-                    render={({ field }) => (
-                      <Select
-                        {...field}
-                        value={locals.find(option => option.value === field.value)}
-                        options={locals}
-                        placeholder="Selecione o estoque (Local)"
-                        className="w-full mr-36"
-                        styles={styles}
-                        onChange={(selected) => field.onChange(selected.value)}
+              <div className='grid grid-cols-1 sm:grid-cols-4 gap-4 mb-2'>
+                <div className='col-span-1 sm:col-span-4 flex flex-col gap-1.5'>
+                  <label className="font-semibold text-sm text-gray-700">Estoque:</label>
+                  <div className='flex gap-2 items-center w-full'>
+                    <div className='flex-1'>
+                      <Controller
+                        name="localId"
+                        control={control}
+                        rules={{ required: true }}
+                        render={({ field }) => (
+                          <Select
+                            {...field}
+                            value={locals.find(option => option.value === field.value)}
+                            options={locals}
+                            placeholder="Selecione o estoque (Local)"
+                            className="w-full text-sm"
+                            styles={styles}
+                            onChange={(selected) => field.onChange(selected.value)}
+                          />
+                        )}
                       />
-                    )}
-                  />
+                    </div>
+                    <div className='flex-shrink-0'>
+                      <LocalAdd />
+                    </div>
+                  </div>
                 </div>
-                <div className='relative col-span-4 mt-2'>
-                  <label>Componente:</label>
-                  <div className='absolute top-4 right-0'><ComponentAdd /></div>
-                </div>
-                <div className='flex col-span-4'>
-                  <Controller
-                    name="componentId"
-                    control={control}
-                    rules={{ required: true }}
-                    render={({ field }) => (
-                      <Select
-                        {...field}
-                        value={components.find(option => option.value === field.value)}
-                        options={components}
-                        placeholder="Selecione o componente"
-                        className="w-full mr-36"
-                        styles={styles}
-                        onChange={(selected) => field.onChange(selected.value).then(setUnity(selected.unity))}
+                
+                <div className='col-span-1 sm:col-span-4 flex flex-col gap-1.5 mt-2'>
+                  <label className="font-semibold text-sm text-gray-700">Componente:</label>
+                  <div className='flex gap-2 items-center w-full'>
+                    <div className='flex-1'>
+                      <Controller
+                        name="componentId"
+                        control={control}
+                        rules={{ required: true }}
+                        render={({ field }) => (
+                          <Select
+                            {...field}
+                            value={components.find(option => option.value === field.value)}
+                            options={components}
+                            placeholder="Selecione o componente"
+                            className="w-full text-sm"
+                            styles={styles}
+                            onChange={(selected) => {
+                              field.onChange(selected.value);
+                              setUnity(selected.unity);
+                            }}
+                          />
+                        )}
                       />
-                    )}
-                  />
+                    </div>
+                    <div className='flex-shrink-0'>
+                      <ComponentAdd />
+                    </div>
+                  </div>
                 </div>
-                <div className='col-span-1 mt-2 relative'>
-                  <label>Quantidade:</label>
-                  <span className='absolute top-8 left-16 text-gray-500 text-sm'>{unity}</span>
+
+                 <div className='col-span-1 sm:col-span-1 mt-2 flex flex-col gap-1.5 relative'>
+                  <label className="font-semibold text-sm text-gray-700">Quantidade:</label>
+                  <div className="relative">
+                    <Input {...register("quantity", { required: true })} placeholder="0" type="number" min="0" max="999999999" className="pr-12 bg-white" />
+                    {unity && <span className='absolute right-3 top-2.5 text-gray-400 text-sm font-medium'>{unity}</span>}
+                  </div>
                 </div>
-                <div className='col-span-1 mt-2 relative'>
-                  <label>Quantidade mínima:</label>
-                  <span className='absolute top-8 left-16 text-gray-500 text-sm'>{unity}</span>
+
+                <div className='col-span-1 sm:col-span-1 mt-2 flex flex-col gap-1.5 relative'>
+                  <label className="font-semibold text-sm text-gray-700">Quantidade mínima:</label>
+                  <div className="relative">
+                    <Input {...register("minimum", { required: true })} placeholder="0" type="number" min="0" max="999999999" className="pr-12 bg-white" />
+                    {unity && <span className='absolute right-3 top-2.5 text-gray-400 text-sm font-medium'>{unity}</span>}
+                  </div>
                 </div>
-                <div className='col-span-1 mt-2'>
-                  <label>Endereço:</label>
+
+                <div className='col-span-1 sm:col-span-1 mt-2 flex flex-col gap-1.5'>
+                  <label className="font-semibold text-sm text-gray-700">Endereço:</label>
+                  <Input {...register("adress", { required: true })} placeholder="Endereço de estoque" className="text-center bg-white" />
                 </div>
-                <div></div>
-                <div className='mr-4'><Input {...register("quantity", { required: true })} placeholder="0" type="number" min="0" max="999999999" ></Input></div>
-                <div className='mr-4'><Input {...register("minimum", { required: true })} placeholder="0" type="number" min="0" max="999999999" ></Input></div>
-                <div className='mr-4'><Input {...register("adress", { required: true })} placeholder="Endereço de estoque" className=" text-center"></Input></div>
-                <div className='mr-2'><Button className="w-full hover:bg-gray-500"> <Check className='w-5 h-5 mr-2' /> Confirmar</Button></div>
+
+                <div className='col-span-1 sm:col-span-1 flex items-end mt-4 sm:mt-0'>
+                  <Button type="submit" className="w-full hover:bg-blue-600 bg-blue-700 text-white font-semibold flex items-center justify-center gap-2">
+                    <Check className='w-5 h-5' /> Confirmar
+                  </Button>
+                </div>
               </div>
             </form>
           </div>

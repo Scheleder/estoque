@@ -134,8 +134,95 @@ const Components = () => {
       ) : error ? (
         <ErrorPage error={error} />) : (
         <div className="relative overflow-x-auto shadow-lg rounded-md">
-          <div className='text-right'>
-            <ComponentAdd />
+          <div className="mx-2 my-4 p-4 shadow-md rounded-xl bg-gray-50 border border-gray-100 flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 flex-1">
+              <div className="relative">
+                <label className="block text-[10px] font-semibold text-gray-500 uppercase mb-1">Categoria</label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={searchCategory}
+                    onChange={(e) => setSearchCategory(e.target.value)}
+                    className="w-full px-3 py-1.5 pl-8 border border-gray-200 rounded-md text-xs bg-white text-gray-800 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    placeholder="Filtrar categoria..."
+                  />
+                  <ListFilter size={14} className="absolute left-2.5 top-2 text-gray-400" />
+                  {searchCategory && (
+                    <RotateCcw
+                      size={14}
+                      className="absolute right-2.5 top-2 text-gray-600 hover:text-red-500 cursor-pointer"
+                      onClick={clearSearchCategory}
+                    />
+                  )}
+                </div>
+              </div>
+
+              <div className="relative">
+                <label className="block text-[10px] font-semibold text-gray-500 uppercase mb-1">Fabricante</label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={searchBrand}
+                    onChange={(e) => setSearchBrand(e.target.value)}
+                    className="w-full px-3 py-1.5 pl-8 border border-gray-200 rounded-md text-xs bg-white text-gray-800 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    placeholder="Filtrar fabricante..."
+                  />
+                  <ListFilter size={14} className="absolute left-2.5 top-2 text-gray-400" />
+                  {searchBrand && (
+                    <RotateCcw
+                      size={14}
+                      className="absolute right-2.5 top-2 text-gray-600 hover:text-red-500 cursor-pointer"
+                      onClick={clearSearchBrand}
+                    />
+                  )}
+                </div>
+              </div>
+
+              <div className="relative">
+                <label className="block text-[10px] font-semibold text-gray-500 uppercase mb-1">Descrição</label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={searchItem}
+                    onChange={(e) => setSearchItem(e.target.value)}
+                    className="w-full px-3 py-1.5 pl-8 border border-gray-200 rounded-md text-xs bg-white text-gray-800 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    placeholder="Filtrar descrição..."
+                  />
+                  <ListFilter size={14} className="absolute left-2.5 top-2 text-gray-400" />
+                  {searchItem && (
+                    <RotateCcw
+                      size={14}
+                      className="absolute right-2.5 top-2 text-gray-600 hover:text-red-500 cursor-pointer"
+                      onClick={clearSearchItem}
+                    />
+                  )}
+                </div>
+              </div>
+
+              <div className="relative">
+                <label className="block text-[10px] font-semibold text-gray-500 uppercase mb-1">SKU</label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={searchSku}
+                    onChange={(e) => setSearchSku(e.target.value)}
+                    className="w-full px-3 py-1.5 pl-8 border border-gray-200 rounded-md text-xs bg-white text-gray-800 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    placeholder="Filtrar SKU..."
+                  />
+                  <ListFilter size={14} className="absolute left-2.5 top-2 text-gray-400" />
+                  {searchSku && (
+                    <RotateCcw
+                      size={14}
+                      className="absolute right-2.5 top-2 text-gray-600 hover:text-red-500 cursor-pointer"
+                      onClick={clearSearchSku}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="flex-shrink-0">
+              <ComponentAdd />
+            </div>
           </div>
           <div className='overflow-x-auto rounded-md shadow-md m-2'>
             <table className="w-full text-xs xs:text-sm text-blue-900">
@@ -146,72 +233,24 @@ const Components = () => {
                 }
               </caption>
               <thead>
-                <tr className="text-xs h-6 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
-                  <th className=''><ArrowUpDown size={12} className='ml-2 absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByCategory} />
-                    <span className='ml-6'>Categoria</span>
-                    <span className='relative'>
-                      <input
-                        type="text"
-                        value={searchCategory}
-                        onChange={(e) => setSearchCategory(e.target.value)}
-                        className='w-32 ml-2 pl-2 rounded-sm text-xs text-orange-600'
-                        placeholder='Filtrar...'
-                      />
-                      {searchCategory ?
-                        <RotateCcw size={12} className='absolute right-2 top-0.5 text-gray-600 hover:text-red-400 cursor-pointer' onClick={clearSearchCategory} /> :
-                        <ListFilter size={12} className='absolute right-2 top-0.5 text-gray-600' />
-                      }
-                    </span>
+                <tr className="text-xs h-8 text-white text-left uppercase bg-gradient-to-r from-blue-950 to-lime-400">
+                  <th className="py-2 pl-2 pr-4 relative">
+                    <ArrowUpDown size={12} className="inline-block mr-1 hover:text-lime-400 cursor-pointer" onClick={orderByCategory} />
+                    <span>Categoria</span>
                   </th>
-                  <th className=''><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByBrand} />
-                    <span className='ml-4'>Fabricante</span>
-                    <span className='relative'>
-                      <input
-                        type="text"
-                        value={searchBrand}
-                        onChange={(e) => setSearchBrand(e.target.value)}
-                        className='w-32 ml-2 pl-2 rounded-sm text-xs text-orange-600'
-                        placeholder='Filtrar...'
-                      />
-                      {searchBrand ?
-                        <RotateCcw size={12} className='absolute right-2 top-0.5 text-gray-600 hover:text-red-400 cursor-pointer' onClick={clearSearchBrand} /> :
-                        <ListFilter size={12} className='absolute right-2 top-0.5 text-gray-600' />
-                      }
-                    </span>
+                  <th className="py-2 px-4 relative">
+                    <ArrowUpDown size={12} className="inline-block mr-1 hover:text-lime-400 cursor-pointer" onClick={orderByBrand} />
+                    <span>Fabricante</span>
                   </th>
-                  <th className=''><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderByDescription} />
-                    <span className='ml-4'>Descrição</span>
-                    <span className='relative'>
-                      <input
-                        type="text"
-                        value={searchItem}
-                        onChange={(e) => setSearchItem(e.target.value)}
-                        className='w-32 ml-2 pl-2 rounded-sm text-xs text-orange-600'
-                        placeholder='Filtrar...'
-                      />
-                      {searchItem ?
-                        <RotateCcw size={12} className='absolute right-2 top-0.5 text-gray-600 hover:text-red-400 cursor-pointer' onClick={clearSearchItem} /> :
-                        <ListFilter size={12} className='absolute right-2 top-0.5 text-gray-600' />
-                      }
-                    </span>
+                  <th className="py-2 px-4 relative">
+                    <ArrowUpDown size={12} className="inline-block mr-1 hover:text-lime-400 cursor-pointer" onClick={orderByDescription} />
+                    <span>Descrição</span>
                   </th>
-                  <th className=''><ArrowUpDown size={12} className='absolute mt-0.5 hover:text-lime-400 cursor-pointer' onClick={orderBySku} />
-                    <span className='ml-4'>SKU</span>
-                    <span className='relative'>
-                      <input
-                        type="text"
-                        value={searchSku}
-                        onChange={(e) => setSearchSku(e.target.value)}
-                        className='w-32 ml-2 pl-2 rounded-sm text-xs text-orange-600'
-                        placeholder='Filtrar...'
-                      />
-                      {searchSku ?
-                        <RotateCcw size={12} className='absolute right-2 top-0.5 text-gray-600 hover:text-red-400 cursor-pointer' onClick={clearSearchSku} /> :
-                        <ListFilter size={12} className='absolute right-2 top-0.5 text-gray-600' />
-                      }
-                    </span>
+                  <th className="py-2 px-4 relative">
+                    <ArrowUpDown size={12} className="inline-block mr-1 hover:text-lime-400 cursor-pointer" onClick={orderBySku} />
+                    <span>SKU</span>
                   </th>
-                  <th></th>
+                  <th className="py-2 px-4"></th>
                 </tr>
               </thead>
               <tbody>

@@ -49,19 +49,19 @@ const Takeout = () => {
     }),
     control: (base) => ({
       ...base,
-      paddingLeft: '1rem'
+      paddingLeft: '2.5rem'
     }),
     option: (base) => ({
       ...base,
-      paddingLeft: '1rem'
+      paddingLeft: '2.5rem'
     }),
     singleValue: (base) => ({
       ...base,
-      paddingLeft: '1rem'
+      paddingLeft: '2.5rem'
     }),
     placeholder: (base) => ({
       ...base,
-      paddingLeft: '1rem'
+      paddingLeft: '2.5rem'
     }),
   };
 
@@ -176,45 +176,46 @@ const Takeout = () => {
       ) : error ? (
         <ErrorPage error={error} />
       ) : (
-        <div className="pl-16 pt-20">
-          <div className="mt-2 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
-            <div className='grid grid-cols-3'>
-              <div className='relative col-span-3 mt-2'>
-                <label>Item:</label>
-                <span className='absolute z-10 top-8 left-2' title="Scanner"><Scanner /></span>
-              </div>
-              <div className='col-span-3'>
-                <Controller
-                  name="itemId"
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field }) => (
-                    <Select
-                      {...field}
-                      value={items.find(option => option.value === field.value)}
-                      options={items}
-                      placeholder="Selecione o item"
-                      className="w-full"
-                      styles={styles}
-                      onChange={(selected) => field.onChange(selected.value).then(changeUnity(selected))}
-                    />
-                  )}
-                />
+        <div className="pl-16 pt-20 pr-4 pb-6">
+          <div className="mt-2 shadow-md rounded-xl p-6 bg-gray-50 border border-gray-100 mr-2">
+            <div className='grid grid-cols-1 gap-4 mb-4'>
+              <div className='flex flex-col gap-1.5 relative'>
+                <label className="font-semibold text-sm text-gray-700">Item:</label>
+                <div className='relative w-full'>
+                  <span className='absolute z-10 top-2 left-2' title="Scanner"><Scanner /></span>
+                  <Controller
+                    name="itemId"
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        value={items.find(option => option.value === field.value)}
+                        options={items}
+                        placeholder="Selecione o item"
+                        className="w-full text-sm"
+                        styles={styles}
+                        onChange={(selected) => {
+                          field.onChange(selected.value);
+                          changeUnity(selected);
+                        }}
+                      />
+                    )}
+                  />
+                </div>
               </div>
               {unity && (
-                <>
-                  <div className='relative col-span-3 mt-2'>
-                    <label>Tipo de movimentação:</label>
-                    <span className='absolute z-10 top-8 left-2 text-gray-400'>
-                      {type && type.id === 1 && (<><SlidersVertical /></>)}
-                      {type && type.id === 2 && (<><Shuffle /></>)}
-                      {type && type.id === 3 && (<><FileText /></>)}
-                      {type && type.id === 4 && (<><PlaneLanding /></>)}
-                      {type && type.id === 5 && (<><PlaneTakeoff /></>)}
-                      {type && type.id === 6 && (<><ArrowRightLeft /></>)}
+                <div className='flex flex-col gap-1.5 mt-2 relative'>
+                  <label className="font-semibold text-sm text-gray-700">Tipo de movimentação:</label>
+                  <div className='relative w-full'>
+                    <span className='absolute z-10 top-2.5 left-3 text-gray-400'>
+                      {type && type.id === 1 && (<SlidersVertical className="w-5 h-5 text-gray-500" />)}
+                      {type && type.id === 2 && (<Shuffle className="w-5 h-5 text-gray-500" />)}
+                      {type && type.id === 3 && (<FileText className="w-5 h-5 text-gray-500" />)}
+                      {type && type.id === 4 && (<PlaneLanding className="w-5 h-5 text-gray-500" />)}
+                      {type && type.id === 5 && (<PlaneTakeoff className="w-5 h-5 text-gray-500" />)}
+                      {type && type.id === 6 && (<ArrowRightLeft className="w-5 h-5 text-gray-500" />)}
                     </span>
-                  </div>
-                  <div className='flex col-span-3'>
                     <Controller
                       name="type"
                       control={control}
@@ -225,137 +226,177 @@ const Takeout = () => {
                           value={availableTypes.find(option => option.value === field.value)}
                           options={availableTypes}
                           placeholder="Selecione o tipo de movimentação"
-                          className="w-full"
+                          className="w-full text-sm"
                           styles={styles}
-                          onChange={(selected) => field.onChange(selected.value).then(changeType(selected))}
+                          onChange={(selected) => {
+                            field.onChange(selected.value);
+                            changeType(selected);
+                          }}
                         />
                       )}
                     />
                   </div>
-                </>
+                </div>
               )}
             </div>
             {type && (
               <form onSubmit={handleSubmit(mySubmit)}>
                 <input type="hidden" {...register("userId", { required: true })} />
                 {type.id === 1 && (
-                  <div className='grid grid-cols-3 mb-2'>
-                    <div className='relative mt-2'>
-                      <label>Quantidade atual:</label>
-                      <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
+                  <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 mb-2'>
+                    <div className='flex flex-col gap-1.5 mt-2 relative'>
+                      <label className="font-semibold text-sm text-gray-700">Quantidade atual:</label>
+                      <div className="relative">
+                        <Input value={qtde} readOnly className="bg-white pr-12 text-center" />
+                        {unity && <span className='absolute right-3 top-2.5 text-gray-400 text-sm font-medium'>{unity}</span>}
+                      </div>
                     </div>
-                    <div className='relative mt-2'>
-                      <label>Nova quantidade:</label>
-                      <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
+                    <div className='flex flex-col gap-1.5 mt-2 relative'>
+                      <label className="font-semibold text-sm text-gray-700">Nova quantidade:</label>
+                      <div className="relative">
+                        <Input {...register("quantity", { required: true })} type="number" min="0" max="999999" defaultValue={0} className="bg-white pr-12 text-center" />
+                        {unity && <span className='absolute right-3 top-2.5 text-gray-400 text-sm font-medium'>{unity}</span>}
+                      </div>
                     </div>
-                    <div></div>
-                    <div className='mr-4'><Input value={qtde} readOnly /></div>
-                    <div className='mr-4'><Input {...register("quantity", { required: true })} type="number" min="0" max="999999" defaultValue={0}></Input></div>
-                    <div className='mr-2'><Button type="submit" className="w-full hover:bg-gray-500"><Check className='mr-2' />Confirmar</Button></div>
+                    <div className='flex items-end mt-4 sm:mt-0'>
+                      <Button type="submit" className="w-full hover:bg-blue-600 bg-blue-700 text-white font-semibold flex items-center justify-center gap-2">
+                        <Check className='w-5 h-5' /> Confirmar
+                      </Button>
+                    </div>
                   </div>
                 )}
                 {type.id === 2 && (
-                  <div className='grid grid-cols-3 mb-2'>
-                    <div className='mt-2'>
-                      <label>Endereço atual:</label>
+                  <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 mb-2'>
+                    <div className='flex flex-col gap-1.5 mt-2'>
+                      <label className="font-semibold text-sm text-gray-700">Endereço atual:</label>
+                      <Input className="text-center bg-white" value={adress} readOnly />
                     </div>
-                    <div className='relative mt-2'>
-                      <label>Novo endereço:</label>
+                    <div className='flex flex-col gap-1.5 mt-2'>
+                      <label className="font-semibold text-sm text-gray-700">Novo endereço:</label>
+                      <Input {...register("destination", { required: true })} placeholder="Novo endereço" type="text" defaultValue="" className="text-center bg-white" />
                     </div>
-                    <div></div>
-                    <div className='mr-4'><Input className=" text-center" value={adress} readOnly /></div>
-                    <div className='mr-4'><Input {...register("destination", { required: true })} placeholder="Novo endereço" type="text" defaultValue="" className="text-center" /></div>
-                    <div className='mr-2'><Button type="submit" className="w-full hover:bg-gray-500"><Check className='mr-2' />Confirmar</Button></div>
+                    <div className='flex items-end mt-4 sm:mt-0'>
+                      <Button type="submit" className="w-full hover:bg-blue-600 bg-blue-700 text-white font-semibold flex items-center justify-center gap-2">
+                        <Check className='w-5 h-5' /> Confirmar
+                      </Button>
+                    </div>
                   </div>
                 )}
                 {type.id === 3 && (
-                  <div className='grid grid-cols-4 mb-2'>
-                    <div className='relative mt-2'>
-                      <label>Quantidade em estoque:</label>
-                      <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
+                  <div className='grid grid-cols-1 sm:grid-cols-4 gap-4 mb-2'>
+                    <div className='flex flex-col gap-1.5 mt-2 relative'>
+                      <label className="font-semibold text-sm text-gray-700">Quantidade em estoque:</label>
+                      <div className="relative">
+                        <Input value={qtde} readOnly className="bg-white pr-12 text-center" />
+                        {unity && <span className='absolute right-3 top-2.5 text-gray-400 text-sm font-medium'>{unity}</span>}
+                      </div>
                     </div>
-                    <div className='relative mt-2'>
-                      <label>Quantidade utilizada:</label>
-                      <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
+                    <div className='flex flex-col gap-1.5 mt-2 relative'>
+                      <label className="font-semibold text-sm text-gray-700">Quantidade utilizada:</label>
+                      <div className="relative">
+                        <Input {...register("quantity", { required: true })} type="number" min="0" max="999999" className="bg-white pr-12 text-center" />
+                        {unity && <span className='absolute right-3 top-2.5 text-gray-400 text-sm font-medium'>{unity}</span>}
+                      </div>
                     </div>
-                    <div className='relative mt-2'>
-                      <label>Número da ordem:</label>
+                    <div className='flex flex-col gap-1.5 mt-2'>
+                      <label className="font-semibold text-sm text-gray-700">Número da ordem:</label>
+                      <Input {...register("destination", { required: true })} type="text" className="text-center bg-white" placeholder="Ex: OS-1234" />
                     </div>
-                    <div></div>
-                    <div className='mr-4'><Input value={qtde} readOnly /></div>
-                    <div className='mr-4'><Input {...register("quantity", { required: true })} type="number" min="0" max="999999"></Input></div>
-                    <div className='mr-4'><Input {...register("destination", { required: true })} type="text" className="text-center"></Input></div>
-                    <div className='mr-2'><Button type="submit" className="w-full hover:bg-gray-500"><Check className="mr-2" />Confirmar</Button></div>
+                    <div className='flex items-end mt-4 sm:mt-0'>
+                      <Button type="submit" className="w-full hover:bg-blue-600 bg-blue-700 text-white font-semibold flex items-center justify-center gap-2">
+                        <Check className='w-5 h-5' /> Confirmar
+                      </Button>
+                    </div>
                   </div>
                 )}
                 {type.id === 4 && (
-                  <div className='grid grid-cols-3 mb-2'>
-                    <div className='relative mt-2'>
-                      <label>Quantidade atual:</label>
-                      <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
+                  <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 mb-2'>
+                    <div className='flex flex-col gap-1.5 mt-2 relative'>
+                      <label className="font-semibold text-sm text-gray-700">Quantidade atual:</label>
+                      <div className="relative">
+                        <Input value={qtde} readOnly className="bg-white pr-12 text-center" />
+                        {unity && <span className='absolute right-3 top-2.5 text-gray-400 text-sm font-medium'>{unity}</span>}
+                      </div>
                     </div>
-                    <div className='relative mt-2'>
-                      <label>Quantidade adicionada:</label>
-                      <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
+                    <div className='flex flex-col gap-1.5 mt-2 relative'>
+                      <label className="font-semibold text-sm text-gray-700">Quantidade adicionada:</label>
+                      <div className="relative">
+                        <Input {...register("quantity", { required: true })} type="number" min="0" max="999999" defaultValue={0} className="bg-white pr-12 text-center" />
+                        {unity && <span className='absolute right-3 top-2.5 text-gray-400 text-sm font-medium'>{unity}</span>}
+                      </div>
                     </div>
-                    <div></div>
-                    <div className='mr-4'><Input value={qtde} readOnly /></div>
-                    <div className='mr-4'><Input {...register("quantity", { required: true })} type="number" min="0" max="999999" defaultValue={0}></Input></div>
-                    <div className='mr-2'><Button type="submit" className="w-full hover:bg-gray-500"><Check className='mr-2' />Confirmar</Button></div>
+                    <div className='flex items-end mt-4 sm:mt-0'>
+                      <Button type="submit" className="w-full hover:bg-blue-600 bg-blue-700 text-white font-semibold flex items-center justify-center gap-2">
+                        <Check className='w-5 h-5' /> Confirmar
+                      </Button>
+                    </div>
                   </div>
                 )}
                 {type.id === 5 && (
-                  <div className='grid grid-cols-3 mb-2'>
-                    <div className='relative mt-2'>
-                      <label>Quantidade atual:</label>
-                      <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
+                  <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 mb-2'>
+                    <div className='flex flex-col gap-1.5 mt-2 relative'>
+                      <label className="font-semibold text-sm text-gray-700">Quantidade atual:</label>
+                      <div className="relative">
+                        <Input value={qtde} readOnly className="bg-white pr-12 text-center" />
+                        {unity && <span className='absolute right-3 top-2.5 text-gray-400 text-sm font-medium'>{unity}</span>}
+                      </div>
                     </div>
-                    <div className='relative mt-2'>
-                      <label>Quantidade retirada:</label>
-                      <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
+                    <div className='flex flex-col gap-1.5 mt-2 relative'>
+                      <label className="font-semibold text-sm text-gray-700">Quantidade retirada:</label>
+                      <div className="relative">
+                        <Input {...register("quantity", { required: true })} type="number" min="0" max="999999" defaultValue={0} className="bg-white pr-12 text-center" />
+                        {unity && <span className='absolute right-3 top-2.5 text-gray-400 text-sm font-medium'>{unity}</span>}
+                      </div>
                     </div>
-                    <div></div>
-                    <div className='mr-4'><Input value={qtde} readOnly /></div>
-                    <div className='mr-4'><Input {...register("quantity", { required: true })} type="number" min="0" max="999999" defaultValue={0}></Input></div>
-                    <div className='mr-2'><Button type="submit" className="w-full hover:bg-gray-500"><Check className='mr-2' />Confirmar</Button></div>
+                    <div className='flex items-end mt-4 sm:mt-0'>
+                      <Button type="submit" className="w-full hover:bg-blue-600 bg-blue-700 text-white font-semibold flex items-center justify-center gap-2">
+                        <Check className='w-5 h-5' /> Confirmar
+                      </Button>
+                    </div>
                   </div>
                 )}
                 {type.id === 6 && (
-                  <div className='grid grid-cols-3 mb-2'>
-                    <div className='relative col-span-3 mt-2'>
-                      <label>Estoque destino:</label>
-                      <span className='absolute z-10 top-8 left-2 text-gray-400' title="Scanner"><Warehouse /></span>
+                  <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 mb-2'>
+                    <div className='col-span-1 sm:col-span-3 mt-2 flex flex-col gap-1.5 relative'>
+                      <label className="font-semibold text-sm text-gray-700">Estoque destino:</label>
+                      <div className="relative">
+                        <span className='absolute z-10 top-2.5 left-3 text-gray-400' title="Scanner"><Warehouse className="w-5 h-5" /></span>
+                        <Controller
+                          name="destination"
+                          control={control}
+                          rules={{ required: true }}
+                          render={({ field }) => (
+                            <Select
+                              {...field}
+                              value={locals.find(option => option.value === field.value)}
+                              options={locals}
+                              placeholder="Estoque destino"
+                              className="w-full text-sm"
+                              styles={styles}
+                              onChange={(selected) => field.onChange(selected.label)}
+                            />
+                          )}
+                        />
+                      </div>
+                               <div className='flex flex-col gap-1.5 mt-2 relative'>
+                      <label className="font-semibold text-sm text-gray-700">Quantidade atual:</label>
+                      <div className="relative">
+                        <Input value={qtde} readOnly className="bg-white pr-12 text-center" />
+                        {unity && <span className='absolute right-3 top-2.5 text-gray-400 text-sm font-medium'>{unity}</span>}
+                      </div>
                     </div>
-                    <div className='col-span-3'>
-                      <Controller
-                        name="destination"
-                        control={control}
-                        rules={{ required: true }}
-                        render={({ field }) => (
-                          <Select
-                            {...field}
-                            value={locals.find(option => option.value === field.value)}
-                            options={locals}
-                            placeholder="Estoque destino"
-                            className="w-full"
-                            styles={styles}
-                            onChange={(selected) => field.onChange(selected.label)}
-                          />
-                        )}
-                      />
+                    <div className='flex flex-col gap-1.5 mt-2 relative'>
+                      <label className="font-semibold text-sm text-gray-700">Quantidade transferida:</label>
+                      <div className="relative">
+                        <Input {...register("quantity", { required: true })} type="number" min="0" max="999999" defaultValue={0} className="bg-white pr-12 text-center" />
+                        {unity && <span className='absolute right-3 top-2.5 text-gray-400 text-sm font-medium'>{unity}</span>}
+                      </div>
+                    </div>            </div>
+                    <div className='flex items-end mt-4 sm:mt-0'>
+                      <Button type="submit" className="w-full hover:bg-blue-600 bg-blue-700 text-white font-semibold flex items-center justify-center gap-2">
+                        <Check className='w-5 h-5' /> Confirmar
+                      </Button>
                     </div>
-                    <div className='relative mt-2'>
-                      <label>Quantidade atual:</label>
-                      <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
-                    </div>
-                    <div className='relative mt-2'>
-                      <label>Quantidade transferida:</label>
-                      <span className='absolute top-8 left-16 text-gray-900 text-sm'>{unity}</span>
-                    </div>
-                    <div></div>
-                    <div className='mr-4'><Input value={qtde} readOnly /></div>
-                    <div className='mr-4'><Input {...register("quantity", { required: true })} type="number" min="0" max="999999" defaultValue={0}></Input></div>
-                    <div className='mr-2'><Button type="submit" className="w-full hover:bg-gray-500"><Check className='mr-2' />Confirmar</Button></div>
                   </div>
                 )}
               </form>

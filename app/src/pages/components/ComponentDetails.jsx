@@ -12,14 +12,17 @@ import ComponentInfo from '@/components/componentInfo';
 import ErrorPage from "../utils/ErrorPage"
 import { useToast } from "@/components/ui/use-toast"
 import { useForm, Controller } from "react-hook-form";
-import { Eye, Send, Save, Earth } from "lucide-react"
+import { Eye, Send, Save, Earth, ArrowLeft } from "lucide-react"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-const styles = { menu: base => ({ ...base, marginTop: 0 }) };
+const styles = {
+  menu: base => ({ ...base, marginTop: 0 }),
+  control: base => ({ ...base, backgroundColor: 'white' })
+};
 
 const ComponentDetails = () => {
   const { id } = useParams();
@@ -141,8 +144,17 @@ const ComponentDetails = () => {
       ) : error ? (
         <ErrorPage error={error} />
       ) : (
-        <div className="pl-16 pt-20">
-          <div className="mt-2 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
+        <div className="pl-16 pt-20 pr-2 pb-6">
+          <div className="mb-4 flex items-center">
+            <Button
+              variant="ghost"
+              onClick={() => navigate(-1)}
+              className="flex items-center gap-1.5 text-gray-500 hover:text-gray-900 transition-colors font-semibold text-xs"
+            >
+              <ArrowLeft className="w-4 h-4" /> Voltar para Configurações
+            </Button>
+          </div>
+          <div className="mt-2 shadow-md rounded-xl p-6 bg-gray-50 border border-gray-100">
             <form onSubmit={handleSubmit(mySubmit)}>
               <div className='grid grid-cols-3 mb-2'>
                 <div className='col-span-2 mt-2'>
@@ -152,10 +164,10 @@ const ComponentDetails = () => {
                   <label>Data do cadastro:</label>
                 </div>
                 <div className='col-span-2'>
-                  <Input {...register("description", { required: true })} className="" defaultValue={component.description} />
+                  <Input {...register("description", { required: true })} className="bg-white" defaultValue={component.description} />
                 </div>
                 <div className='col-span-1 pl-4'>
-                  <Input placeholder="Registro" className="text-center" value={getDate(component.createdAt)} readOnly />
+                  <Input placeholder="Registro" className="text-center bg-white" value={getDate(component.createdAt)} readOnly />
                 </div>
                 <div className='col-span-3 mt-2'>
                   <label>Fabricante:</label>
@@ -234,10 +246,10 @@ const ComponentDetails = () => {
                 </div>
                 <div className='col-span-1 mt-2'></div>
                 <div className='col-span-1'>
-                  <Input {...register("sku", { required: true })} className=" mr-2" defaultValue={component.sku} />
+                  <Input {...register("sku", { required: true })} className=" mr-2 bg-white" defaultValue={component.sku} />
                 </div>
                 <div className='col-span-1 pr-2'>
-                  <Input {...register("barcode", { required: false })} className=" ml-2" defaultValue={component.barcode} />
+                  <Input {...register("barcode", { required: false })} className=" ml-2 bg-white" defaultValue={component.barcode} />
                 </div>
                 <div className='flex col-span-1'>
                   <Button type="submit" className="w-full ml-4 bg-blue-700 hover:bg-blue-500"><Save className='w-4 h-4 mr-2' /> Salvar alterações</Button>

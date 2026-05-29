@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import Loading from '@/components/loading';
 import ErrorPage from "../utils/ErrorPage"
 import FilterList from '@/components/filterList';
+import { formatQuantity } from '@/lib/utils';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -154,7 +155,7 @@ const Items = () => {
                     <tr key={index} className='odd:bg-stone-300 even:bg-stone-200 hover:bg-blue-100 font-semibold'>
                       <td className='px-2 py-1'>{dt.adress}</td>
                       <td className='p-1'>{dt.Component.description}</td>
-                      <td className='p-1'>{dt.quantity} {dt.Component.Unity.abrev}</td>
+                      <td className='p-1'>{formatQuantity(dt.quantity, dt.Component?.Unity?.decimal)} {dt.Component?.Unity?.abrev}</td>
                       <td className='flex p-1'>
                         <DropdownMenu className="z-0">
                           <DropdownMenuTrigger asChild>

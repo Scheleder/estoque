@@ -58,23 +58,27 @@ const clearSearchItem = () => {
         <ErrorPage error={error} />
       ) : (
         <div>
-          <div className='grid grid-cols-2'>
-            <div className='text-left items-center'>
-              <span className='relative'>
+          <div className="mx-2 my-4 p-4 shadow-md rounded-xl bg-gray-50 border border-gray-100 flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="relative">
                 <input
                   type="text"
                   value={searchItem}
                   onChange={(e) => setSearchItem(e.target.value)}
-                  className='w-40 h-6 pl-2 m-4 rounded-sm text-xs bg-gray-100 text-orange-600 border border-gray-300'
-                  placeholder='Filtrar...'
+                  className="w-64 px-3 py-1.5 pl-8 border border-gray-200 rounded-md text-xs bg-white text-gray-800 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  placeholder="Buscar por local..."
                 />
-                {searchItem ?
-                  <RotateCcw size={16} className='absolute left-36 top-1 text-gray-600 hover:text-red-400 cursor-pointer' onClick={clearSearchItem} /> :
-                  <ListFilter size={16} className='absolute left-36 top-1 text-gray-600' />
-                }
-              </span>
+                <ListFilter size={14} className="absolute left-2.5 top-2 text-gray-400" />
+                {searchItem && (
+                  <RotateCcw
+                    size={14}
+                    className="absolute right-2.5 top-2 text-gray-600 hover:text-red-500 cursor-pointer"
+                    onClick={clearSearchItem}
+                  />
+                )}
+              </div>
             </div>
-            <div className='text-right'>
+            <div>
               <LocalAdd />
             </div>
           </div>

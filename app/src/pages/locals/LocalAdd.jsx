@@ -73,7 +73,7 @@ export function LocalAdd() {
                 type="button"
                 disabled
                 title="Apenas administradores podem cadastrar novos locais de estoque."
-                className="inline-flex m-2.5 bg-gray-300 text-gray-500 px-4 py-1.5 rounded-md cursor-not-allowed opacity-50 items-center gap-1 font-semibold text-sm"
+                className="inline-flex m-2.5 bg-gray-100 text-gray-400 border border-gray-200 px-4 py-1.5 rounded-md cursor-not-allowed items-center gap-1 font-semibold text-sm transition-colors"
             >
                 <Plus className="w-5 h-5" /> Adicionar
             </button>

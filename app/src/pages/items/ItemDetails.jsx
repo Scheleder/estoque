@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { React, useEffect, useState } from 'react';
 import { api }  from '@/services/config';
-import { getDate } from '@/lib/utils';
+import { getDate, formatQuantity } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Loading from '@/components/loading';
@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input'
 import Select from 'react-select'
 import ComponentInfo from '@/components/componentInfo';
 import ErrorPage from "../utils/ErrorPage"
-import { Eye, Info, Save, ArrowUpDown, ShoppingCart } from "lucide-react"
+import { Eye, Info, Save, ArrowUpDown, ShoppingCart, ArrowLeft } from "lucide-react"
 import {
   Tooltip,
   TooltipContent,
@@ -114,15 +114,24 @@ const ItemDetails = (props) => {
       ) : error ? (
         <ErrorPage error={error} />
       ) : (
-        <div className="pl-16 pt-20">
-          <div className="mt-2 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
+        <div className="pl-16 pt-20 pr-2 pb-6">
+          <div className="mb-4 flex items-center">
+            <Button
+              variant="ghost"
+              onClick={() => navigate(-1)}
+              className="flex items-center gap-1.5 text-gray-500 hover:text-gray-900 transition-colors font-semibold text-xs"
+            >
+              <ArrowLeft className="w-4 h-4" /> Voltar para Itens de Estoque
+            </Button>
+          </div>
+          <div className="mt-2 shadow-md rounded-xl p-6 bg-gray-50 border border-gray-100">
             <div className='grid grid-cols-3 mb-2'>
               <div className='col-span-3 mt-2 relative'>
                 <label>Componente:</label>
                 <span onClick={getInfos} title="Informações sobre o componente" className='absolute text-orange-700 hover:text-lime-500 top-9 left-2 cursor-pointer'><Info className='w-4 h-4' /></span>
               </div>
               <div className='flex col-span-3'>
-                <Input placeholder="Nome" className=" pl-8 mr-2" value={item.Component.description + ' - ' + item.Component.Brand.name} readOnly />
+                <Input placeholder="Nome" className=" pl-8 mr-2 bg-white" value={item.Component.description + ' - ' + item.Component.Brand.name} readOnly />
                 <Link to={`/takeout/${item.id}`}>
                   <Button className="p-2 hover:bg-gray-600" title="Movimentar"><ShoppingCart /></Button>
                 </Link>
@@ -137,21 +146,21 @@ const ItemDetails = (props) => {
                 <label>Estoque mínimo:</label>
               </div>
               <div className='col-span-1'>
-                <Input placeholder="Endereço" className=" text-center" value={item.adress} readOnly />
+                <Input placeholder="Endereço" className=" text-center bg-white" value={item.adress} readOnly />
               </div>
               <div className='col-span-1 pl-4'>
-                <Input placeholder="Qauntidade" className=" text-center" value={item.quantity} readOnly />
+                <Input placeholder="Quantidade" className=" text-center bg-white" value={formatQuantity(item.quantity, item.Component?.Unity?.decimal)} readOnly />
               </div>
               <div className='col-span-1 pl-4'>
-                <Input placeholder="Mínimo" className=" text-center" value={item.minimum} readOnly />
+                <Input placeholder="Mínimo" className=" text-center bg-white" value={formatQuantity(item.minimum, item.Component?.Unity?.decimal)} readOnly />
               </div>
             </div>
           </div>
 
           {info ? (<ComponentInfo comp={item.Component.description} fab={item.Component.Brand.name} />) : null}
 
-          <div className="mt-4 shadow-lg rounded-md mr-2 p-2 bg-gray-200">
-            <span className='text-gray-600 font-lg'>Movimentações: </span>
+          <div className="mt-4 shadow-md rounded-xl p-6 bg-gray-50 border border-gray-100 mr-2">
+            <span className='text-gray-700 font-semibold text-lg'>Movimentações: </span>
             <div className='overflow-x-auto rounded-md shadow-md m-2'>
               <table className="w-full text-xs xs:text-sm text-blue-900">
                 <caption className="caption-bottom my-1 text-gray-400">
@@ -179,7 +188,7 @@ const ItemDetails = (props) => {
                         <td className='px-2 py-1'>{getDate(dt.createdAt)}</td>
                         <td className='p-1'>{dt.type}</td>
                         <td className='p-1'>{dt.destination}</td>
-                        <td className='p-1'>{dt.quantity} </td>
+                        <td className='p-1'>{formatQuantity(dt.quantity, item.Component?.Unity?.decimal)} {item.Component?.Unity?.abrev}</td>
                         <td className='p-1'>{dt.User.name}</td>
                       </tr>
                     ))
